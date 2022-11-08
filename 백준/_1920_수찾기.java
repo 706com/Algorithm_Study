@@ -37,7 +37,6 @@ public class _1920_수찾기 {
         Arrays.sort(A);
 
 
-
         for(int i=0; i<arr2.length; i++) {
             //binary 함수에 A배열과 key 값을 전달
             int key = arr2[i];
