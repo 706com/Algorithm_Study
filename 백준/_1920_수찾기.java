@@ -15,13 +15,13 @@ public class _1920_수찾기 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int N = Integer.parseInt(br.readLine());
-        int[] arr1 = new int[N];
+        int[] A = new int[N];
 
         //공백단위 토큰화
         StringTokenizer st = new StringTokenizer(br.readLine()," ");
 
-        for(int i=0; i<arr1.length; i++){
-            arr1[i] = Integer.parseInt(st.nextToken());
+        for(int i=0; i<A.length; i++){
+            A[i] = Integer.parseInt(st.nextToken());
         }
 
         int M = Integer.parseInt(br.readLine());
@@ -34,13 +34,14 @@ public class _1920_수찾기 {
         }
 
         //이분탐색 하기 위해서는 배열이 무조건 정렬 되어 있어야함!
-        Arrays.sort(arr1);
+        Arrays.sort(A);
 
-        int key;
+
 
         for(int i=0; i<arr2.length; i++) {
-            //binary 함수에 arr1배열과 key 값을 전달
-            boolean rst = binary(arr1, arr2[i]);
+            //binary 함수에 A배열과 key 값을 전달
+            int key = arr2[i];
+            boolean rst = binary(A, key);
 
             if(rst){
                 System.out.println("1");
@@ -51,20 +52,20 @@ public class _1920_수찾기 {
         }
     }
 
-    public static boolean binary(int[] arr,int key){
-        int low=0;
-        int high=arr.length-1;
+    public static boolean binary(int[] A,int key){
 
+        int low = 0;
         int mid = 0;
+        int high = A.length-1;
 
         //low 값이 high를 넘어서는 순간까지 반복
         while(low<=high){
             mid = (low+high) / 2;
 
-            if(key < arr[mid]){
+            if(key < A[mid]){
                 high = mid-1;
             }
-            else if(key > arr[mid]){
+            else if(key > A[mid]){
                 low = mid +1;
             }
             else{
@@ -72,7 +73,6 @@ public class _1920_수찾기 {
                 return true;
             }
         }
-
         //반복문이 끝날 때 까지 못찾으면 false 반환
         return false;
     }

@@ -11,8 +11,6 @@ class Main{
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        boolean check;
-
         //첫번째 배열 넣기
         int N = Integer.parseInt(br.readLine());
         long[] arr= new long[N];
@@ -35,27 +33,38 @@ class Main{
 
         //이분 탐색 시작
         Arrays.sort(arr);
-        Arrays.sort(arr2);
 
         int low,high,mid;
+        boolean check;
 
-        low = 0;
-        high = arr.length-1;
 
-        while(low < high){
-            mid = (low + high) / 2;
-//            int key = arr2[];
-//
-//            if(key == arr[mid]){
-//                break;
-//            }
-//            if(key>arr[mid]){
-//                low = mid;
-//            }
-//            else if(key<arr[mid]){
-//                 high= mid;
-//            }
+        for(int i=0; i<arr2.length; i++) {
+            long key = arr2[i];
 
+            check = false;
+            low = 0;
+            high = arr.length-1;
+
+            while (low <= high) {
+                mid = (low + high) / 2;
+
+                if (key == arr[mid]) {
+                    check = true;
+                    break;
+                }
+                else if (key > arr[mid]) {
+                    low = mid + 1;
+                }
+                else if (key < arr[mid]) {
+                    high = mid-1;
+                }
+            }
+            if(check){
+                System.out.println("1");
+            }
+            else{
+                System.out.println("0");
+            }
         }
 
 
