@@ -10,14 +10,20 @@ import java.util.StringTokenizer;
 class Main{
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        boolean check;
+
+        //첫번째 배열 넣기
         int N = Integer.parseInt(br.readLine());
         long[] arr= new long[N];
-        boolean check;
+
         StringTokenizer st = new StringTokenizer(br.readLine()," ");
         for(int i=0; i<N; i++){
             arr[i] = Long.parseLong(st.nextToken());
         }
 
+
+        //두번째 배열 넣기
         int M = Integer.parseInt(br.readLine());
         long[] arr2= new long[M];
 
@@ -27,28 +33,32 @@ class Main{
             arr2[i] = Long.parseLong(st.nextToken());
         }
 
+        //이분 탐색 시작
         Arrays.sort(arr);
         Arrays.sort(arr2);
 
-        for(int i=0; i<N; i++){
-            System.out.print(arr[i]+" ");
+        int low,high,mid;
+
+        low = 0;
+        high = arr.length-1;
+
+        while(low < high){
+            mid = (low + high) / 2;
+//            int key = arr2[];
+//
+//            if(key == arr[mid]){
+//                break;
+//            }
+//            if(key>arr[mid]){
+//                low = mid;
+//            }
+//            else if(key<arr[mid]){
+//                 high= mid;
+//            }
+
         }
 
 
-
-        for(int i=0; i<M; i++){
-            check=false;
-            for(int j=0; j<N; j++){
-                if(arr2[i] == arr[j]){
-                    System.out.println("1");
-                    check = true;
-                    break;
-                }
-            }
-            if(!check){
-                System.out.println("0");
-            }
-        }
 
     }
 }
