@@ -2,6 +2,7 @@ package 백준;//1929 : 소수구하기
 //<새로 알게된 것>
 //소수란? :1보다 큰 자연수 중 1과 그 수 자기 자신만을 약수로 갖는 자연수
 //소수 구하는 알고리즘 : 에라토스테네스 체
+//
 
 import java.io.BufferedReader;
 import java.io.IOException;
