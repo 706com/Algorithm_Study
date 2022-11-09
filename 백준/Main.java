@@ -10,30 +10,39 @@ import java.util.StringTokenizer;
 
 class Main{
     public static void main(String[] args) throws IOException{
-        Scanner sc= new Scanner(System.in);
-        int M = sc.nextInt();
-        int N = sc.nextInt();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        int[] arr = new int[N];
 
-        boolean[] arr= new boolean[N+1];
+        int max = 0;
 
-        arr[0] = true;
-        arr[1] = true;
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        for(int i=0; i<N; i++){
+            arr[i] = Integer.parseInt(st.nextToken());
+            if(max<arr[i]){
+                max = arr[i];
+            }
+        }
 
-        for(int i=2; i<Math.sqrt(arr.length); i++){
-            if(arr[i]){
+        boolean[] check = new boolean[max+1];
+        check[0] = true;
+        check[1] = true;
+
+        for(int i=2; i<Math.sqrt(check.length); i++){
+            if(check[i]){
                 continue;
             }
-            for(int j = i*i; j<arr.length; j+=i){
-                arr[j] = true;
+            for(int j=i*i; j< check.length; j+=i){
+                check[j] = true;
             }
         }
 
-        for(int i=M; i<arr.length; i++){
-            if(!arr[i]){
-                System.out.println(i);
+        int cnt = 0;
+        for(int i=0; i<arr.length; i++){
+            if(!check[arr[i]]){
+                cnt++;
             }
         }
-
-
+        System.out.println(cnt);
     }
 }

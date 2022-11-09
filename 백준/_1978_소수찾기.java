@@ -2,6 +2,7 @@ package 백준;//1978 : 소수 찾기
 //<새로 알게된 것>
 //StringTokenizer 의 위치를 잘 고려해야한다. (맨 위에 썼다가 오류발생)
 //에라토스테네스 체 알고리즘 복기하기
+//
 
 import java.io.BufferedReader;
 import java.io.IOException;
