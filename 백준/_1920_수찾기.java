@@ -2,6 +2,7 @@ package 백준;//1920 : 수찾기
 //깨달은 것
 //BufferedReader , readLine()
 //StringTokenizer , nextToken()
+//
 
 import java.io.BufferedReader;
 import java.io.IOException;
