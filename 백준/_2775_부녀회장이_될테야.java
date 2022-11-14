@@ -16,6 +16,7 @@ public class _2775_부녀회장이_될테야 {
             int n = Integer.parseInt(br.readLine());
 
             for(int i=0; i<k; i++){
+                if()
 
             }
 
