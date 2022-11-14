@@ -27,9 +27,8 @@ public class _2751_수_정렬하기2 {
             arr.add(Integer.parseInt(br.readLine()));
         }
 
-        //Comparator.naturalOrder() : 오름차순
-        //Comparator.reverseOrder() : 내림차순
-        //arr.sort(Comparator.naturalOrder());
+        //Collections.sort(arr) : 오름차순
+        //Collections.sort(arr,Comparator.reverseOrder()) : 내림차순
         Collections.sort(arr);
 
         for(int i=0; i<N; i++){
