@@ -14,19 +14,20 @@ class Main{
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        int n = N;
-        int m = M;
-        int r = 1;
-        while(r!=0){
-            r = N % M;
-            N = M;
-            M = r;
+        int[] arr = new int[N];
+        st = new StringTokenizer(br.readLine()," ");
+        for(int i=0; i<N; i++){
+            arr[i] = Integer.parseInt(st.nextToken());
         }
-        System.out.println(N);
 
-        n = n / N;
-        m = m / N;
-        System.out.println(N*n*m);
+        for(int i=0; i<N; i++){
+            for (int j=i+1; j<N; j++){
+                for(int k=j+1; k<N; k++){
+
+                }
+            }
+        }
+
 
     }
 }
