@@ -8,6 +8,8 @@ package 백준;
 //1. Stack<> 안에 String, Character 차이는?
 //2. stack.empty() , stack.isempty() 차이점은?
 
+//주석달기
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
