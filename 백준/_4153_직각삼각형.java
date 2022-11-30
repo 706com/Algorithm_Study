@@ -17,8 +17,6 @@ public class _4153_직각삼각형 {
 
         while(true){
             StringTokenizer st = new StringTokenizer(br.readLine()," ");
-            int[] arr = new int[3];
-            int max = 0;
 
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
