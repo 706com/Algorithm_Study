@@ -10,31 +10,35 @@ class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+        int T = Integer.parseInt(br.readLine());
 
-        while(true){
-            StringTokenizer st = new StringTokenizer(br.readLine()," ");
-            int a= Integer.parseInt(st.nextToken());
-            int b= Integer.parseInt(st.nextToken());
-            int c= Integer.parseInt(st.nextToken());
+        while(T != 0){
+            T--;
+            int k = Integer.parseInt(br.readLine());
+            int n = Integer.parseInt(br.readLine());
 
-            if(a==0 && b==0 && c==0){
-                break;
+            // 0번지부터 시작하니까 +1 해줘서
+            // k층 n호 맞춰주기!
+            int[][] arr = new int[k+1][n+1];
+
+            //0층 사람 넣어주기 (0번지는 없다고 생각하고 1~n호)
+            for(int i=0; i<n+1; i++){
+                arr[0][i] = i;
             }
 
-            if(Math.pow(a,2)+Math.pow(b,2) == Math.pow(c,2)){
-                System.out.println("right");
+            // 마찬가지로 0층 , 0호는 없다고 생각하고,
+            // 1층 1호부터 사람 넣어주기
+
+            // i = 층
+            // j = 호
+            for(int i=1; i <= k; i++){
+                for(int j=1; j <= n; j++){
+                    arr[i][j] = arr[i-1][j] + arr[i][j-1];
+                }
             }
-            else if(Math.pow(b,2)+Math.pow(c,2) == Math.pow(a,2)){
-                System.out.println("right");
-            }
-            else if(Math.pow(a,2)+Math.pow(c,2) == Math.pow(b,2)){
-                System.out.println("right");
-            }
-            else{
-                System.out.println("wrong");
-            }
+
+            System.out.println(arr[k][n]);
         }
-
     }
 }
 
