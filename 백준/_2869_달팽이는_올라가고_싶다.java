@@ -6,6 +6,8 @@ package 백준;
 //시간이 짧을때는 반복문은 절대 들어가면 안되고, 수식으로 풀어야한다.
 //수식 고민하기
 //point : 정상에 올라간 후에는 미끄러지지 않는다.
+//
+
 
 import java.io.BufferedReader;
 import java.io.IOException;

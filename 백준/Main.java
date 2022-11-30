@@ -9,35 +9,66 @@ import java.util.StringTokenizer;
 class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
 
-        int T = Integer.parseInt(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
 
-        while(T != 0){
-            T--;
-            int k = Integer.parseInt(br.readLine());
-            int n = Integer.parseInt(br.readLine());
+        int[] arr = new int[N];
+        st = new StringTokenizer(br.readLine()," ");
 
-            // 0번지부터 시작하니까 +1 해줘서
-            // k층 n호 맞춰주기!
-            int[][] arr = new int[k+1][n+1];
+        for(int i=0; i<N; i++){
+            arr[i] = Integer.parseInt(st.nextToken());
+        }
 
-            //0층 사람 넣어주기 (0번지는 없다고 생각하고 1~n호)
-            for(int i=0; i<n+1; i++){
-                arr[0][i] = i;
-            }
+        int temp = 0;
+        boolean check = false;
 
-            // 마찬가지로 0층 , 0호는 없다고 생각하고,
-            // 1층 1호부터 사람 넣어주기
-
-            // i = 층
-            // j = 호
-            for(int i=1; i <= k; i++){
-                for(int j=1; j <= n; j++){
-                    arr[i][j] = arr[i-1][j] + arr[i][j-1];
+        Loop :
+        for(int i=0; i<N-2; i++){
+            for(int j=i+1; j<N-1; j++){
+                for(int k=j+1; k<N; k++) {
+                    if (arr[i] + arr[j] + arr[k] == M) {
+                        System.out.println(M);
+                        check = true;
+                        break Loop;
+                    }
+                    else if (temp < arr[i] + arr[j] + arr[k] && arr[i] + arr[j] + arr[k] < M) {
+                        temp = arr[i] + arr[j] + arr[k];
+                    }
                 }
             }
+        }
+        if(!check) {
+            System.out.println(temp);
+        }
+    }
+}
 
-            System.out.println(arr[k][n]);
+
+package 백준;
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+
+        int A = Integer.parseInt(st.nextToken());
+        int B = Integer.parseInt(st.nextToken());
+        int V = Integer.parseInt(st.nextToken());
+
+        int day = (V-B) / (A-B);
+        if((V-B) % (A-B) == 0){
+            System.out.println(day);
+        }
+        else{
+            System.out.println(day+1);
         }
     }
 }

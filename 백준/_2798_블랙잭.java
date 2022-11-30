@@ -5,6 +5,7 @@ package 백준;
 // 블랙잭: 카드의 합이 21을 넘지 않는 한도 내에서, 카드의 합을 최대한 크게 만드는 게임
 // 브루트포스 문제 : N 의범위가 100 미만이다 (범위가 적다) -> 삼중포문이라도 가능
 // Loop1: -> break(Loop) 로 다중반복문 빠져나올 수 있음!
+//
 
 import java.io.BufferedReader;
 import java.io.IOException;
