@@ -9,5 +9,6 @@ package 백준;
 public class _10814_나이순정렬 {
     public static void main(String[] args){
 
+
     }
 }
