@@ -8,7 +8,6 @@ package 백준;
 //<궁금한 것>
 //이분탐색 과정을 완벽히 머릿속으로 이해하기
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
