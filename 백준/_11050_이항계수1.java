@@ -8,5 +8,6 @@ package 백준;
 public class _11050_이항계수1 {
     public static void main(String[] args){
 
+
     }
 }
