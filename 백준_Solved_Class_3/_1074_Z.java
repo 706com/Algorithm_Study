@@ -23,6 +23,8 @@ public class _1074_Z {
         int c = Integer.parseInt(st.nextToken());   //열(column)
         int size = (int)Math.pow(2,N);              //2^N == 한 변의 길이
         find(r,c,size);
+
+        System.out.println(count);
     }
 
     public static void find(int r,int c, int size){
@@ -30,21 +32,23 @@ public class _1074_Z {
         if(size == 1){
             return;
         }
-
         //1사분면 -> count 증가없이, 사이즈만 줄이기
-        if(r > size/2 && c > size/2){
+        if(r < size/2 && c < size/2){
             find(r,c,size/2);
         }
         //2사분면
-        else if (r>=size/2 && c < size/2){
+        else if (r < size/2 && c >= size/2){
             count += size * size / 4;
             find(r,c-size/2,size/2);
         }
         //3사분면
-        else if (r < size/2 && c>=size/2){
+        else if (r >= size/2 && c < size/2){
             count += (size * size / 4) * 2;
-            find()
-
+            find(r - size/2, c , size/2);
+        }
+        else{
+            count += (size * size / 4) * 3;
+            find(r-size/2 , c-size/2 ,size/2);
         }
     }
 }
