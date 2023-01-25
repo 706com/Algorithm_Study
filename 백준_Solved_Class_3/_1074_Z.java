@@ -18,18 +18,33 @@ public class _1074_Z {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine()," ");
-        int N = Integer.parseInt(st.nextToken());   //
+        int N = Integer.parseInt(st.nextToken());
         int r = Integer.parseInt(st.nextToken());   //행(row)
         int c = Integer.parseInt(st.nextToken());   //열(column)
-        int size = (int)Math.pow(2,N);
+        int size = (int)Math.pow(2,N);              //2^N == 한 변의 길이
         find(r,c,size);
     }
 
-    public static void find(int newR,int newC, int size){
+    public static void find(int r,int c, int size){
+        //최종적으로 쪼개진 4분면사이즈
         if(size == 1){
             return;
         }
-        int newSize = size / 2;
-        if()
+
+        //1사분면 -> count 증가없이, 사이즈만 줄이기
+        if(r > size/2 && c > size/2){
+            find(r,c,size/2);
+        }
+        //2사분면
+        else if (r>=size/2 && c < size/2){
+            count += size * size / 4;
+            find(r,c-size/2,size/2);
+        }
+        //3사분면
+        else if (r < size/2 && c>=size/2){
+            count += (size * size / 4) * 2;
+            find()
+
+        }
     }
 }
