@@ -23,11 +23,13 @@ public class _1107_리모컨 {
         int M = Integer.parseInt(br.readLine());    //고장난 버튼의 개수(0<=M<=10)
         ArrayList<Integer> brokenBtn= new ArrayList<>();
 
-        //입력 (고장난 버튼)
-        StringTokenizer st = new StringTokenizer(br.readLine()," ");
-        for(int i=0; i<M; i++){
-            int btn = Integer.parseInt(st.nextToken());
-            brokenBtn.add(btn);
+        //입력 (고장난 버튼) (조건문 안걸어주면 런타임 에러)
+        if(M!=0) {
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            for (int i = 0; i < M; i++) {
+                int btn = Integer.parseInt(st.nextToken());
+                brokenBtn.add(btn);
+            }
         }
 
         //입력받은 값이 100이면 바로 결과 출력
