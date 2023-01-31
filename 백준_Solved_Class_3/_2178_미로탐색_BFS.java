@@ -77,14 +77,14 @@ public class _2178_미로탐색_BFS {
             }
         }
     }
-}
-
-class Node{
-    int x;
-    int y;
-    Node(int x,int y){
-        super();
-        this.x = x;
-        this.y = y;
+    static class Node{
+        int x;
+        int y;
+        Node(int x,int y){
+            super();
+            this.x = x;
+            this.y = y;
+        }
     }
 }
+
