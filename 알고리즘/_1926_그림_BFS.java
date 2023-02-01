@@ -84,13 +84,14 @@ public class _1926_그림_BFS {
         }
         return area;
     }
-}
-class Node{
-    int x;
-    int y;
-    public Node(int x,int y){
-        super();
-        this.x= x;
-        this.y =y;
+    static class Node{
+        int x;
+        int y;
+        public Node(int x,int y){
+            super();
+            this.x= x;
+            this.y =y;
+        }
     }
 }
+
