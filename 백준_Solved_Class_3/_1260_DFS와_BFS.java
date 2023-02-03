@@ -17,6 +17,7 @@ public class _1260_DFS와_BFS {
     static int N,M;
     static int[][] connectLine;
     static boolean[] visit;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine()," ");
@@ -27,15 +28,33 @@ public class _1260_DFS와_BFS {
         visit = new boolean[N+1];
 
         //노드 - 간선 연결짓기
-        for(int i=0; i<M; i++){
+        for(int i=1; i<=M; i++){
             st= new StringTokenizer(br.readLine()," ");
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
             connectLine[a][b] = connectLine[b][a] = 1;
         }
+        for(int i=1; i<=N; i++){
+            connectLine[i][i] =1;
+        }
 
-        bfs(V);
+        for(int i=1; i<=N; i++){
+            for(int j=1; j<=N; j++){
+                System.out.print(connectLine[i][j]+" ");
+            }
+            System.out.println();
+        }
+
+        for(int i=1; i<=N; i++){
+            for(int j=1; j<=N; j++){
+                if(connectLine[i][j] != 1 || visit[i] == true){
+                    continue;
+                }
+                bfs(V);
+            }
+        }
     }
+
     public static void bfs(int v){
         StringBuilder sb = new StringBuilder();
         Queue<Integer> q = new LinkedList<>();
@@ -47,14 +66,15 @@ public class _1260_DFS와_BFS {
             int temp = q.poll();
 
             for(int i=1; i<=N; i++){
-                if(connectLine[temp][i] == 1 && visit[i] == false){
-                    q.offer(i);
-                    visit[i] = true;
-                    sb.append(i).append(" ");
+                if(connectLine[temp][i] != 1 && visit[i] == true) {
+                    continue;
                 }
+                q.offer(i);
+                visit[i] = true;
+                sb.append(temp).append(" ");
             }
         }
         System.out.println(sb);
-
     }
 }
+
