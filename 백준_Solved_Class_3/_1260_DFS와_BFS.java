@@ -1,4 +1,5 @@
 package 백준_Solved_Class_3;
+//[백준]1260 : DFS와 BFS - JAVA(자바)
 
 //<새로 알게된 것>
 //
@@ -34,16 +35,16 @@ public class _1260_DFS와_BFS {
             int b = Integer.parseInt(st.nextToken());
             connectLine[a][b] = connectLine[b][a] = 1;
         }
-        for(int i=1; i<=N; i++){
-            connectLine[i][i] =1;
-        }
+//        for(int i=1; i<=N; i++){
+//            connectLine[i][i] =1;
+//        }
 
-        for(int i=1; i<=N; i++){
-            for(int j=1; j<=N; j++){
-                System.out.print(connectLine[i][j]+" ");
-            }
-            System.out.println();
-        }
+//        for(int i=1; i<=N; i++){
+//            for(int j=1; j<=N; j++){
+//                System.out.print(connectLine[i][j]+" ");
+//            }
+//            System.out.println();
+//        }
 
         for(int i=1; i<=N; i++){
             for(int j=1; j<=N; j++){
@@ -60,19 +61,20 @@ public class _1260_DFS와_BFS {
         Queue<Integer> q = new LinkedList<>();
         q.offer(v);
         visit[v] = true;
-        sb.append(v).append(" ");
+        //sb.append(v).append(" ");
 
         while(!q.isEmpty()){
             int temp = q.poll();
+            //System.out.println(temp);
 
             for(int i=1; i<=N; i++){
-                if(connectLine[temp][i] != 1 && visit[i] == true) {
+                if(connectLine[temp][i] != 1 || visit[i] == true) {
                     continue;
                 }
                 q.offer(i);
                 visit[i] = true;
-                sb.append(temp).append(" ");
             }
+            sb.append(temp).append(" ");
         }
         System.out.println(sb);
     }
