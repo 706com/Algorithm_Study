@@ -2,7 +2,8 @@ package 백준_Solved_Class_3;
 //[백준]1260 : DFS와 BFS - JAVA(자바)
 
 //<새로 알게된 것>
-//
+//배열 초기화 : Arrays.fill
+//기존 dfs,bfs 와 다르게, 노드와 간선으로 생각했을 경우의 문제.
 
 //<궁금한 것>
 //
@@ -10,9 +11,7 @@ package 백준_Solved_Class_3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class _1260_DFS와_BFS {
     static int N,M;
@@ -35,25 +34,48 @@ public class _1260_DFS와_BFS {
             int b = Integer.parseInt(st.nextToken());
             connectLine[a][b] = connectLine[b][a] = 1;
         }
-//        for(int i=1; i<=N; i++){
-//            connectLine[i][i] =1;
-//        }
+        //dfs 돌리기
+        dfs(V);
+        System.out.println();
 
+//        //모든 노드를 탐색하면 안됨 : 반례 이유 : //www.acmicpc.net/board/view/51403
 //        for(int i=1; i<=N; i++){
 //            for(int j=1; j<=N; j++){
-//                System.out.print(connectLine[i][j]+" ");
+//                if(connectLine[i][j] != 1 || visit[i] == true){
+//                    continue;
+//                }
+//                dfs(V);
 //            }
-//            System.out.println();
 //        }
 
+        //방문여부 초기화
+        Arrays.fill(visit,false);
+
+        //bfs 돌리기
+        bfs(V);
+
+//        //마찬가지로 모든 노드 탐색하면 안됨
+//        for(int i=1; i<=N; i++){
+//            for(int j=1; j<=N; j++){
+//                if(connectLine[i][j] != 1 || visit[i] == true){
+//                    continue;
+//                }
+//                bfs(V)
+//            }
+//        }
+    }
+
+    public static void dfs(int v){
+        visit[v] = true;
+        System.out.print(v+" ");
+
         for(int i=1; i<=N; i++){
-            for(int j=1; j<=N; j++){
-                if(connectLine[i][j] != 1 || visit[i] == true){
-                    continue;
-                }
-                bfs(V);
+            if(connectLine[v][i] != 1 || visit[i] == true){
+                continue;
             }
+            dfs(i);
         }
+
     }
 
     public static void bfs(int v){
@@ -61,11 +83,9 @@ public class _1260_DFS와_BFS {
         Queue<Integer> q = new LinkedList<>();
         q.offer(v);
         visit[v] = true;
-        //sb.append(v).append(" ");
 
         while(!q.isEmpty()){
             int temp = q.poll();
-            //System.out.println(temp);
 
             for(int i=1; i<=N; i++){
                 if(connectLine[temp][i] != 1 || visit[i] == true) {
@@ -78,5 +98,6 @@ public class _1260_DFS와_BFS {
         }
         System.out.println(sb);
     }
+
 }
 
