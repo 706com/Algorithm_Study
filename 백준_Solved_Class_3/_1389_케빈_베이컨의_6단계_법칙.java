@@ -25,10 +25,10 @@ public class _1389_케빈_베이컨의_6단계_법칙 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine()," ");
         N = Integer.parseInt(st.nextToken());    //유저의 수 (2<=N<=100)
-        M = Integer.parseInt(st.nextToken());    //친구 관계의 수 (1 ≤ M ≤ 5,000)
+        M = Integer.parseInt(st.nextToken());    //친구 관계의 수 (1 ≤ M ≤ 5,000) : 사람수가 아닌 '관계의 갯수' 라는 것 명심!
 
-        connectLine = new int[N+1][M+1];
-        visit = new boolean[M+1];
+        connectLine = new int[N+1][N+1];
+        visit = new boolean[N+1];
 
         //친구 관계 맺기(노드-간선처럼)
         for(int i=1; i<=M; i++){
@@ -70,7 +70,7 @@ public class _1389_케빈_베이컨의_6단계_법칙 {
         while(!q.isEmpty()) {
             Node node = q.poll();
             count += node.count;
-            for (int i = 1; i <= M; i++) {
+            for (int i = 1; i <= N; i++) {
                 if(connectLine[node.num][i] != 1 || visit[i] == true){
                     continue;
                 }
