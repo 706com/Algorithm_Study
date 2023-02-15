@@ -5,7 +5,7 @@ package 백준_Solved_Class_3;
 //st.hasMoreTokens() : == isEmpty()
 
 //<궁금한 것>
-//
+//nextToken() 에서 발생하는 에러 찾기
 
 import java.io.BufferedReader;
 import java.io.IOException;
