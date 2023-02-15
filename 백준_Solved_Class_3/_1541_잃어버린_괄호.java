@@ -42,3 +42,4 @@ public class _1541_잃어버린_괄호 {
         System.out.println(result);
     }
 }
+
