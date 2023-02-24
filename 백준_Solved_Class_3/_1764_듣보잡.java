@@ -10,25 +10,22 @@ package 백준_Solved_Class_3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class _1764_듣보잡 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine()," ");
         StringBuilder sb = new StringBuilder();
+        HashMap<String,Integer> hash = new HashMap<>();
 
         int N = Integer.parseInt(st.nextToken());   //듣도 못한 사람의 수 1<=N<=500,000
         int M = Integer.parseInt(st.nextToken());   //보도 못한 사람의 수 1<=M<=500,000
 
-        List<String> arr = new ArrayList<>();
-        List<String> result =new ArrayList<>();
+
 
         for(int i=0; i<N; i++){
-            arr.add(br.readLine());
+            hash.put(br.readLine(),1);
         }
 
 
