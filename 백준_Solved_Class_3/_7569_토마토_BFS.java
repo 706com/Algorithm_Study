@@ -146,6 +146,7 @@ public class _7569_토마토_BFS {
         }
     }
 
+
     static class Node{
         int x;
         int y;
