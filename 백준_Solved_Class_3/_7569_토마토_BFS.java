@@ -6,8 +6,11 @@ package 백준_Solved_Class_3;
 // bfs 과정이 머릿속으로 완벽정리가 되지 않아서 그런지, 어떻게 해야할 지 헷갈리는 것 같다.
 
 //< 답안 알고리즘 >
+// bfs 3차원
 
 //< 새로 알게된 것 >
+// 3차원이 되면서 x,y,z / i,j,k / nx ,ny ,nz 의 연관이해 필요.
+// 시작점이 여러개인 경우 : 한번에 모든 시작점을 큐에 넣어주고 돌린다.
 
 //< 궁금한 것 >
 
@@ -38,6 +41,7 @@ public class _7569_토마토_BFS {
 
         board = new int[H][N][M];
         dist = new int[H][N][M];
+        q = new LinkedList<>();
 
         boolean check = false;
 
@@ -54,48 +58,48 @@ public class _7569_토마토_BFS {
             }
         }
 
+        // check 가 false 인 경우 : 0을 하나도 안만난 경우 = 모두 익은 것
         if(!check){
             System.out.println("0");
             return;
         }
 
-        //bfs 탐색하기
+        //bfs 탐색하기 (시작점이 여러개인 경우 : 한번에 모든 시작점을 큐에 넣어주고 돌린다.)
         for(int i=0; i<H; i++) {
             for (int j = 0; j < N; j++) {
                 for (int k = 0; k < M; k++) {
-                    if(board[i][j][k] == 1 && dist[i][j][k] == 0) {
-                        bfs(i, j, k);
+                    if(board[i][j][k] == 1) {
+                        q.offer(new Node(i, j, k));
                     }
                 }
             }
         }
+        bfs();
 
-        System.out.println();
+//        //bfs 후 board 보기
+//        for(int i=0; i<H; i++) {
+//            System.out.println("board "+ i + "층");
+//            for (int j = 0; j < N; j++) {
+//                for (int k = 0; k < M; k++) {
+//                    System.out.print(board[i][j][k]+" ");
+//                }
+//                System.out.println();
+//            }
+//        }
+//        System.out.println();
+//
+//        //bfs 후 dist 보기
+//        for(int i=0; i<H; i++) {
+//            System.out.println("dist " + i + "층");
+//            for (int j = 0; j < N; j++) {
+//                for (int k = 0; k < M; k++) {
+//                    System.out.print(dist[i][j][k]+" ");
+//                }
+//                System.out.println();
+//            }
+//        }
 
-        //bfs 후 board 보기
-        for(int i=0; i<H; i++) {
-            System.out.println("board "+ i + "층");
-            for (int j = 0; j < N; j++) {
-                for (int k = 0; k < M; k++) {
-                    System.out.print(board[i][j][k]+" ");
-                }
-                System.out.println();
-            }
-        }
-        System.out.println();
-
-        //bfs 후 dist 보기
-        for(int i=0; i<H; i++) {
-            System.out.println("dist " + i + "층");
-            for (int j = 0; j < N; j++) {
-                for (int k = 0; k < M; k++) {
-                    System.out.print(dist[i][j][k]+" ");
-                }
-                System.out.println();
-            }
-        }
-
-
+        // 답안 출력(최댓값) 구하기, board 에 접근하지못한 (0) 이 있으면 -1 출력
         int result = 0;
         for(int i=0; i<H; i++) {
             for (int j = 0; j < N; j++) {
@@ -117,16 +121,9 @@ public class _7569_토마토_BFS {
 
     }
 
-    static void bfs(int z,int y,int x){
-        int day = 0;
-        dist[z][y][x] = day;
-
-        q= new LinkedList<>();
-        q.offer(new Node(x,y,z,day));
-
+    static void bfs(){
         while(!q.isEmpty()){
             Node node = q.poll();
-            day = node.day+1;
             for(int i=0; i<6; i++){
                 int nx = node.x + dx[i];
                 int ny = node.y + dy[i];
@@ -135,29 +132,27 @@ public class _7569_토마토_BFS {
                 if(nx<0 || ny<0 || nz<0 || nx>=M || ny>=N || nz>=H){
                     continue;
                 }
-                if(board[nz][ny][nx] != 0 || dist[nz][ny][nx] != 0){ //접근한 토마토가 0이 아니거나, 이미 방문한 곳
+                if(board[nz][ny][nx] != 0 || dist[nz][ny][nx] > 0){ //접근한 토마토가 0이 아니거나, 이미 방문한 곳
                     continue;
                 }
 
-                q.offer(new Node(nx,ny,nz,day));
+                q.offer(new Node(nz,ny,nx));
                 board[nz][ny][nx] = 1;
-                dist[nz][ny][nx] = day;
+                dist[nz][ny][nx] = dist[node.z][node.y][node.x]+1;
             }
         }
     }
 
 
     static class Node{
-        int x;
-        int y;
         int z;
-        int day;
+        int y;
+        int x;
 
-        Node(int x, int y, int z, int day){
-            this.x = x;
-            this.y = y;
+        Node(int z, int y, int x){
             this.z = z;
-            this.day = day;
+            this.y = y;
+            this.x = x;
         }
     }
 }
