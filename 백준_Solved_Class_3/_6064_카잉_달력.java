@@ -45,7 +45,7 @@ public class _6064_카잉_달력 {
                 if(j>N){
                     j=1;
                 }
-//                System.out.println("<" + i + ":" + j + ">");
+                System.out.println("<" + i + ":" + j + ">");
                 i++;
                 j++;
                 count++;
