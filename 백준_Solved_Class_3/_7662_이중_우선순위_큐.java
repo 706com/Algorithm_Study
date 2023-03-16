@@ -36,9 +36,10 @@ public class _7662_이중_우선순위_큐 {
 
             for(int i=0; i<k; i++){
                 StringTokenizer st = new StringTokenizer(br.readLine()," ");
-                String command  = st.nextToken();
+                String command  = st.nextToken();   // I,D
                 int value = Integer.parseInt(st.nextToken());
 
+                // 넣기. (이미 있는 키면 값 증가)
                 if(command.equals("I")) {
                     map.put(value,map.getOrDefault(value,0) +1);
                 }
