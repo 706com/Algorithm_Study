@@ -59,4 +59,10 @@ public class _6064_카잉_달력 {
             }
         }
     }
+    static void GCD(int a , int b){
+        int temp =0;
+        while(b>0){
+
+        }
+    }
 }
