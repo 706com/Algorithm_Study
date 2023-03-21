@@ -11,6 +11,6 @@ package 백준_Solved_Class_3;
 
 public class _9019_DSLR {
     public static void main(String[] args) {
-        System.out.println();
+
     }
 }
