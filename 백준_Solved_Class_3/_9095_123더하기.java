@@ -40,6 +40,7 @@ public class _9095_123더하기 {
         if(dp[n] == null) {
             dp[n] = count(n - 3) + count(n - 2) + count(n - 1);
         }
+
         return dp[n];
     }
 }
