@@ -10,7 +10,7 @@ package 백준_Solved_Class_3;
 
 //< 새로 알게된 것 >
 // count 호출과정에서 n-3 n-2 n-1 실수! dp[n-3] 등을 불러내면 안됨
-// Integer 로 하는것이 null값 처리가 용이함.
+// Integer 로 하는것이 null값 처리가 용이함!
 
 //< 궁금한 것 >
 
