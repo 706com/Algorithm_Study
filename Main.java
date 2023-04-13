@@ -4,54 +4,63 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 class src {
-    static int[] map = new int [101];
-    static boolean[] visit = new boolean[101];
-    static int[] cnt = new int[101];
-    public static void bfs(){
-        Queue<Integer> queue = new LinkedList<>();
-        queue.add(1);
-        visit[1] = true;
-        while (!queue.isEmpty()){
-            int x = queue.poll();
-            if(x == 100){
-                System.out.println(cnt[x]);
-                break;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PriorityQueue<Integer> pq= new PriorityQueue<>(Collections.reverseOrder());
+
+        int N = Integer.parseInt(br.readLine());
+        int[][] arr = new int[N][2];
+
+        for(int i=0; i<N; i++){
+            StringTokenizer st = new StringTokenizer(br.readLine()," ");
+            int M = Integer.parseInt(st.nextToken());
+            int D = Integer.parseInt(st.nextToken());
+
+            arr[i][0] = M;
+            arr[i][1] = D;
+
+        }
+
+        Arrays.sort(arr, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o2[1] - o1[1];
             }
-            for(int i =1; i<=6; i++) {
-                int X = x + i;
-                if (X > 100 || visit[X]) continue;
-                if (map[X] != 0 && !visit[map[X]]) {
-                    visit[map[X]] = true;
-                    queue.add(map[X]);
-                    cnt[map[X]] = cnt[x] + 1;
-                } else if(map[X] == 0){
-                    visit[X] = true;
-                    queue.add(X);
-                    cnt[X] = cnt[x] + 1;
+        });
+
+
+        for(int i=0; i<N; i++){
+            System.out.println(arr[i][0]+" " +  arr[i][1]);
+        }
+
+        int maxDay = arr[0][1]; //최대데이
+        int result = 0;
+
+        for(int i=0; i<N; i++){
+            if(maxDay == arr[i][1]){
+                pq.offer(arr[i][0]);
+            }
+            else{
+                if(!pq.isEmpty()) {
+                    result += pq.poll();
+                    maxDay--;
+                    continue;
+                }
+
+                if(maxDay == arr[i][1]){
+                    pq.offer(arr[i][0]);
+                }
+                else if(maxDay != arr[i][1]){
+                    continue;
                 }
             }
         }
-    }
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
 
-        for(int i = 0; i<N; i++){
-            st = new StringTokenizer(br.readLine());
-            int x = Integer.parseInt(st.nextToken());
-            int y = Integer.parseInt(st.nextToken());
-            map[x]=y;
-        }
+        if(!pq.isEmpty())
+            result += pq.poll();
 
-        for(int i = 0; i<M; i++){
-            st = new StringTokenizer(br.readLine());
-            int u = Integer.parseInt(st.nextToken());
-            int v = Integer.parseInt(st.nextToken());
-            map[u]=v;
-        }
-        Arrays.fill(cnt, 0);
-        bfs();
+        System.out.println(result);
+
     }
+
 }
