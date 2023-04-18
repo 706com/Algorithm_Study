@@ -10,6 +10,8 @@ package 백준;
 
 //주석달기
 
+//다시 짠게 어찌 더 더럽니
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
