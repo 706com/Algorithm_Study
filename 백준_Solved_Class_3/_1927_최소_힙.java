@@ -14,7 +14,7 @@ package 백준_Solved_Class_3;
 
 //< 새로 알게된 것 >
 // 낮은 숫자가 우선 순위(오름차순) : new PriorityQueue<>();
-// 높은 숫자가 우선 순위(내림차순) : new PriorityQueue<>(Collectionsn.reverseOrder);
+// 높은 숫자가 우선 순위(내림차순) : new PriorityQueue<>(Collections.reverseOrder);
 
 //< 궁금한 것 >
 //
@@ -27,27 +27,50 @@ import java.util.PriorityQueue;
 public class _1927_최소_힙 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
-        int N = Integer.parseInt(br.readLine()); // (1 ≤ N ≤ 100,000)
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
 
-        PriorityQueue<Integer> q = new PriorityQueue<>();
+        int N = Integer.parseInt(br.readLine());
 
         for(int i=0; i<N; i++){
-            int input = Integer.parseInt(br.readLine());
-            if(input != 0) {
-                q.offer(input);
-                continue;
-            }
-            else{
-                if(q.isEmpty()){
-                    sb.append("0").append("\n");
+            int num = Integer.parseInt(br.readLine());
+            if(num == 0){
+                if(pq.isEmpty()){
+                    System.out.println("0");
                 }
                 else{
-                    sb.append(q.poll()).append("\n");
+                    System.out.println(pq.poll());
                 }
             }
+            else{
+                pq.offer(num);
+            }
         }
-
-        System.out.println(sb);
     }
 }
+
+
+//    public static void main(String[] args) throws IOException {
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        StringBuilder sb = new StringBuilder();
+//        int N = Integer.parseInt(br.readLine()); // (1 ≤ N ≤ 100,000)
+//
+//        PriorityQueue<Integer> q = new PriorityQueue<>();
+//
+//        for(int i=0; i<N; i++){
+//            int input = Integer.parseInt(br.readLine());
+//            if(input != 0) {
+//                q.offer(input);
+//                continue;
+//            }
+//            else{
+//                if(q.isEmpty()){
+//                    sb.append("0").append("\n");
+//                }
+//                else{
+//                    sb.append(q.poll()).append("\n");
+//                }
+//            }
+//        }
+//
+//        System.out.println(sb);
+//    }
