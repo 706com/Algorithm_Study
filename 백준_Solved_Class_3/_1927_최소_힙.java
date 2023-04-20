@@ -40,6 +40,7 @@ public class _1927_최소_힙 {
                 else{
                     System.out.println(pq.poll());
                 }
+
             }
             else{
                 pq.offer(num);
