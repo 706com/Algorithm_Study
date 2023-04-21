@@ -3,28 +3,46 @@ package 백준;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.PriorityQueue;;
+import java.util.PriorityQueue;
+import java.util.Stack;;
 
 class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        String command = br.readLine();
 
-        int N = Integer.parseInt(br.readLine());
+        int answer = solution(command);
+        System.out.println(answer);
+    }
 
-        for(int i=0; i<N; i++){
-            int num = Integer.parseInt(br.readLine());
-            if(num == 0){
-                if(pq.isEmpty()){
-                    System.out.println("0");
-                }
-                else{
-                    System.out.println(pq.poll());
-                }
+    static int solution(String cmd){
+        Stack<Character> stack = new Stack<>();
+        int answer = 0;
+        char before = '-';
+        //1. '(' ')' 를 구분한다.
+        for(int i=0; i<cmd.length(); i++){
+            if(i>=1){
+                before = cmd.charAt(i-1);
             }
-            else{
-                pq.offer(num);
+            char c = cmd.charAt(i);
+            //2. '('이면 스택에 넣어주고
+            if(c == '('){
+                stack.push(c);
+            }
+            //3. ) 이면 앞이 '(' 인지 ')' 인지 확인 하고 pop과 출력을 담아준다.
+            else if( i>0 && c==')' && !stack.isEmpty()){
+                if(before == '('){
+                    stack.pop();
+                    answer += stack.size();
+                }
+                else if(before == ')'){
+                    answer +=1;
+                    stack.pop();
+                }
             }
         }
+        return answer;
     }
+
+
 }
