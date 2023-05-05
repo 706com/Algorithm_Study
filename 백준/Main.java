@@ -8,18 +8,34 @@ import java.util.*;
 class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb= new StringBuilder();
+
+        Stack<Integer> stack = new Stack<>();
+
         int N = Integer.parseInt(br.readLine());
-        int num;
+        int start =0;
 
-        PriorityQueue<Integer> positiveNum = new PriorityQueue<>(Collections.reverseOrder());
-        PriorityQueue<Integer> negativeNum = new PriorityQueue<>();
-        for(int i=-5; i<0; i++) {
-            positiveNum.offer(i);
+        while(N -- > 0){
+
+            int now = Integer.parseInt(br.readLine());
+
+            if(now > start) {
+                for (int i = start+1; i <= now; i++) {
+                    stack.push(i);
+                    sb.append('+').append('\n');
+                }
+                start = now;
+            }
+
+            else if(stack.peek() != now){
+                System.out.println("NO");
+                return;
+            }
+
+            stack.pop();
+            sb.append("-").append('\n');
         }
 
-        for(int i=1; i<5; i++) {
-            System.out.println(positiveNum.poll());
-        }
+        System.out.println(sb);
     }
 }

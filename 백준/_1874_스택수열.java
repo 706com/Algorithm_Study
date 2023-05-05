@@ -15,22 +15,35 @@ import java.util.Stack;
 public class _1874_스택수열 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb= new StringBuilder();
+
         Stack<Integer> stack = new Stack<>();
-        int n = Integer.parseInt(br.readLine());
 
-        // 1. 입력값을 저장한다.
-        for(int i=0; i<n; i++){
-            sb.append(br.readLine());
+        int N = Integer.parseInt(br.readLine());
+        int start =0;
+
+        while(N -- > 0){
+
+            int now = Integer.parseInt(br.readLine());
+
+            if(now > start) {
+                for (int i = start+1; i <= now; i++) {
+                    stack.push(i);
+                    sb.append('+').append('\n');
+                }
+                start = now;
+            }
+
+            else if(stack.peek() != now){
+                System.out.println("NO");
+                return;
+            }
+
+            stack.pop();
+            sb.append("-").append('\n');
         }
 
-        // 2. Q 에서 1~n 만큼 push한다.
-        for(int i=0; i<n; i++){
-
-            stack.push(i);
-        }
-        // 3. 안되는 조건을 찾는다
-        // 4. 출력
+        System.out.println(sb);
     }
 }
 
