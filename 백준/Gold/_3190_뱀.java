@@ -28,6 +28,7 @@ public class _3190_뱀 {
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
             board[a][b] = 1;
+
         }
     }
 }
