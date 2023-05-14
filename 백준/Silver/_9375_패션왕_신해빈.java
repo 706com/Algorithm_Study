@@ -48,6 +48,7 @@ public class _9375_패션왕_신해빈 {
             }
             answer--; //아무것도 입지 않은 것 하나 빼기
             System.out.println(answer);
+
         }
     }
 }
