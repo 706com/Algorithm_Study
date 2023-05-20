@@ -3,7 +3,6 @@ package 백준.Silver;
 
 //< 알고리즘 유형 >
 // 백트래킹
-// STL : next_permultation
 
 //< 알고리즘 풀이 >
 // 공집합부터 모든 수열의 조합을 만들어나가고, 답안 확인
