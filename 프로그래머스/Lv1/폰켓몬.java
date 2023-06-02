@@ -15,11 +15,9 @@ package 프로그래머스.Lv1;
 
 //< 궁금한 것 >
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 
-public class _폰켓몬 {
+public class 폰켓몬 {
     public int solution(int[] nums) {
         int answer = 0;
         int pick = nums.length/2;
@@ -43,7 +41,7 @@ public class _폰켓몬 {
     public static void main(String[] args) {
         int[] nums = {3,1,2,3};
 
-        _폰켓몬 sol = new _폰켓몬();
+        폰켓몬 sol = new 폰켓몬();
         System.out.println(sol.solution(nums));
     }
 }
