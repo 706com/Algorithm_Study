@@ -5,10 +5,12 @@ package 프로그래머스.Lv2;
 // 스택/큐
 
 //< 알고리즘 풀이 >
+// 스택/큐 인데.. 배열로 접근!
 
 //< 새로 알게된 것 >
 
 //< 궁금한 것 >
+// 다음에 스택으로 접근해보자.
 
 public class 주식가격 {
     public int[] solution(int[] prices) {
