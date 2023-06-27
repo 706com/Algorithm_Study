@@ -12,37 +12,36 @@ package 프로그래머스.Lv2;
 
 //< 궁금한 것 >
 
-import java.util.LinkedList;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class 가장_큰_수 {
     public String solution(int[] numbers) {
-        PriorityQueue<Node> pq = new PriorityQueue<>((o1,o2)-> o2.num - o1.num);
+        String answer ="";
+        String[] arr = new String[numbers.length];
 
-        int[] temp = new int[numbers.length];
-        String answer = "";
-
+        // int to String
         for(int i=0; i<numbers.length; i++){
-            if(numbers[i]/10 == 0){
-                temp[i] = numbers[i]%10;
+            arr[i] = String.valueOf(numbers[i]);
+        }
+
+        // 문자열 기준으로 내림차순 정렬
+        Arrays.sort(arr, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return (o2+o1).compareTo(o1+o2);
             }
-            else{
-                temp[i] = numbers[i]/10;
-            }
+        });
+
+        if(arr[0].equals("0")){
+            return "0";
         }
 
-        for(int i=0; i<numbers.length; i++){
-            Node node = new Node(i,temp[i]);
-            pq.offer(node);
+        for(String x : arr){
+            answer += x;
         }
 
-        for(int i=0; i< numbers.length; i++){
-            String str = String.valueOf(numbers[pq.poll().index]);
-            answer += str;
-        }
+//        System.out.println(answer);
 
-        System.out.println(answer);
         return answer;
     }
 
@@ -50,17 +49,7 @@ public class 가장_큰_수 {
 //        int[] numbers= {6, 10, 2};
         int[] numbers= {3, 30, 34, 5, 9};
 
-
         가장_큰_수 sol = new 가장_큰_수();
         sol.solution(numbers);
-    }
-
-    class Node{
-        int index;
-        int num;
-        Node(int index,int num){
-            this.index=index;
-            this.num = num;
-        }
     }
 }
