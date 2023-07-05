@@ -20,28 +20,45 @@ import java.util.PriorityQueue;
 public class 디스크_컨트롤러 {
     public int solution(int[][] jobs) {
         int answer = 0;
-        int jobIndex = 0;
         int end = 0;
+        int jobsIndex = 0;
+        int count = 0;
 
+        // 처리시간 기준으로 오름차순 정렬되는 우선순위 큐(Heap)
+        PriorityQueue<int[]> pq = new PriorityQueue<>((o1,o2)-> o1[1]-o2[1]);
 
-        Arrays.sort(jobs,(o1,o2)-> o1[0]-o2[0] );
+        //요청순서대로 배열 오름차순 정렬
+        Arrays.sort(jobs , (o1,o2)-> o1[0]-o2[0]);
 
-        PriorityQueue<int[]> pq = new PriorityQueue<>((o1,o2) -> o1[1]-o2[1]);
+        while(count < jobs.length){
 
-        while(){
-            while(jobIndex < jobs.length && jobs[jobIndex][0] <= end){
-                pq.add(jobs[jobIndex]);
-                jobIndex++;
+            //하나의 작업이 완료되는 시점(end)까지 들어온 모든 요청을 큐에 넣기
+            while(jobsIndex < jobs.length && jobs[jobsIndex][0] <= end){
+                pq.offer(jobs[jobsIndex]);
+                jobsIndex++;
+            }
+
+            // 큐가 비어있다면 작업 완료(end) 이후에 다시 요청이 들어온다는 의미
+            // (end를 요청의 가장 처음으로 맞춰줌)
+            if (pq.isEmpty()){
+                end = jobs[jobsIndex][0];
+            }
+            // 작업이 끝나기 전(end 이전) 들어온 요청 중 가장 수행시간이 짧은 요청부터 수행
+            else{
+                int[] temp = pq.poll();
+                answer += temp[1] + end - temp[0];
+                end += temp[1];
+                count++;
             }
         }
 
-
-        return answer;
+        // 소수점 버림
+        return (int) Math.floor(answer / jobs.length);
     }
 
     public static void main(String[] args) {
-//        int[][] jobs = {{0,3},{1,9},{2,6}};
-        int[][] jobs = {{0,9},{1,6},{2,3}};
+        int[][] jobs = {{0,3},{1,9},{2,6}};
+//        int[][] jobs = {{0,9},{1,6},{2,3}};
 
         디스크_컨트롤러 sol = new 디스크_컨트롤러();
         sol.solution(jobs);
