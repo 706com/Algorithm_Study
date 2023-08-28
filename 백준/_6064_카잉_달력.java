@@ -16,53 +16,6 @@ import java.util.StringTokenizer;
 
 public class _6064_카잉_달력 {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-        int T = Integer.parseInt(br.readLine());
 
-        while(T-- > 0){
-
-            //입력
-            st = new StringTokenizer(br.readLine()," ");
-
-            int M = Integer.parseInt(st.nextToken());   //1 ≤ M, N ≤ 40,000
-            int N = Integer.parseInt(st.nextToken());
-            int x = Integer.parseInt(st.nextToken());   //1 ≤ x ≤ M
-            int y = Integer.parseInt(st.nextToken());   //1 ≤ y ≤ N
-
-            int i=0;
-            int j=0;
-            int count =0;
-            boolean check = false;
-            while((i!=M || j!=N)) {
-                if(i==x && j==y){
-                    check = true;
-                    break;
-                }
-                if(i>M){
-                    i=1;
-                }
-                if(j>N){
-                    j=1;
-                }
-                System.out.println("<" + i + ":" + j + ">");
-                i++;
-                j++;
-                count++;
-            }
-            System.out.println("<" + i + ":" + j + ">");
-            if(!check){
-                System.out.println("-1");
-            }
-            else {
-                System.out.println(count);
-            }
-        }
-    }
-    static void GCD(int a , int b){
-        int temp =0;
-        while(b>0){
-
-        }
     }
 }
