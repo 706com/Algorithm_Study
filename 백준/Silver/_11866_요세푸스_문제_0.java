@@ -17,6 +17,7 @@ import java.util.StringTokenizer;
 
 public class _11866_요세푸스_문제_0 {
     public static void main(String[] args) throws IOException {
+
         BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(br.readLine()," ");
