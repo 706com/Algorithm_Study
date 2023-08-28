@@ -1,16 +1,15 @@
 package 백준.Silver;
 //[백준]11286 : 절댓값 힙 - JAVA(자바)
 
-//< 나의 알고리즘 >
-// 양수 우선순위큐 , 음수 우선순위큐(큰 값부터) 2개를 선언하여
-// 두개의 우선순위큐 중 , 절댓값으로 비교하여 출력 (정답)
+// < 알고리즘 유형 >
+// 우선순위 큐
 
-//< 답안 알고리즘 >
-// 2개 각각 선언보다, comparator , compare 로 절댓값으로 기준 잡는 것이 더 효율적.
+// < 풀이방법 >
+// 양수일 때, 음수일 때 각각 나눠서 운용
 
-//< 새로 알게된 것 >
+// < Remember ! >
+// priority queue 는 최소힙이 디폴트 !
 
-//< 궁금한 것 >
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,45 +19,43 @@ import java.util.PriorityQueue;
 
 public class _11286_절댓값_힙 {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
-        int N = Integer.parseInt(br.readLine());
-        int num;
-        boolean check = true;
+
         PriorityQueue<Integer> positiveNum = new PriorityQueue<>();
         PriorityQueue<Integer> negativeNum = new PriorityQueue<>(Collections.reverseOrder());
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        StringBuilder sb = new StringBuilder();
+
+        int N = Integer.parseInt(br.readLine());
+
         for(int i=0; i<N; i++){
-            num = Integer.parseInt(br.readLine());
-            // 0 일때
-            if(num == 0){
-                // 음수,양수 값이 모두 비어있으면 0출력
-                if(positiveNum.isEmpty() && negativeNum.isEmpty()){
-                    sb.append("0").append('\n');
+            int num = Integer.parseInt(br.readLine());
+            if(num != 0){   // 0 이 아닐 때
+                if(num < 0){
+                    negativeNum.offer(num);
                 }
-                else{
-                    if(positiveNum.isEmpty()){
-                        sb.append(negativeNum.poll()).append('\n');
-                    }
-                    else if(negativeNum.isEmpty()){
+                else if(num > 0){
+                    positiveNum.offer(num);
+                }
+            }
+            else{   //0 일 때
+                if(positiveNum.isEmpty() && negativeNum.isEmpty()){
+                    sb.append('0').append('\n');
+                }
+                else if(positiveNum.isEmpty()){
+                    sb.append(negativeNum.poll()).append('\n');
+                }
+                else if(negativeNum.isEmpty()){
+                    sb.append(positiveNum.poll()).append('\n');
+                }
+                else{   // 둘 다 안비었을 때
+                    if(positiveNum.peek() < Math.abs(negativeNum.peek())) {
                         sb.append(positiveNum.poll()).append('\n');
                     }
                     else{
-                        if(positiveNum.peek()<Math.abs(negativeNum.peek())){
-                            sb.append(positiveNum.poll()).append('\n');
-                        }
-                        else{
-                            sb.append(negativeNum.poll()).append('\n');
-                        }
+                        sb.append(negativeNum.poll()).append('\n');
                     }
-                }
-            }
-            // 0이 아닐때
-            else{
-                if(num>0){
-                    positiveNum.offer(num);
-                }
-                else{
-                    negativeNum.offer(num);
                 }
             }
         }
