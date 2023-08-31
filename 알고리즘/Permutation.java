@@ -9,12 +9,11 @@ package 알고리즘;
 // output	뽑힌 r 개의 값
 // visited	중복해서 뽑지 않기 위해 체크하는 값
 
-
 // < 알고리즘 설명 >
-// 1. DFS를 돌면서 모든 인덱스를 방문하여 output 에 값을 넣습니다.
-// 2. 이미 들어간 값은 visited 값을 true 로 바꾸어 중복하여 넣지 않도록 합니다.
-// 3. depth 값은 output 에 들어간 숫자의 길이라고 생각하시면 됩니다.
-// 4. depth 의 값이 r 만큼 되면 output 에 들어있는 값을 출력하면 됩니다.
+// 1. DFS를 돌면서 모든 인덱스를 방문하여 output 에 값을 넣는다.
+// 2. 이미 들어간 값은 visited 값을 true 로 바꾸어 중복하여 넣지 않도록 한다.
+// 3. depth 값은 output 에 들어간 숫자의 길이라고 생각하면 편하다.
+// 4. depth 의 값이 r 만큼 되면 output 에 들어있는 값을 출력하면 된다.
 
 public class Permutation {
     public static void main(String[] args) {
@@ -37,7 +36,7 @@ public class Permutation {
         }
 
         for(int i=0; i<n; i++){
-            if(visited[i] != true){
+            if(!visited[i]){
                 visited[i] = true;
                 output[depth] = arr[i];
                 permutation(arr,output,visited,depth+1,n,r);
