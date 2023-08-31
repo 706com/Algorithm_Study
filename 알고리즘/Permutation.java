@@ -19,16 +19,15 @@ package 알고리즘;
 public class Permutation {
     public static void main(String[] args) {
         int n = 3;
+        int depth = 0;
         int[] arr = {1,2,3};
         int[] output = new int[n];
         boolean[] visited = new boolean[n];
 
         permutation(arr,output,visited,0,n,3);
-        System.out.println();
     }
 
-    //사전순으로 순열 구하기
-    static void permutation(int[] arr, int[] output, boolean[] visited,int depth, int n , int r){
+    static void permutation(int[] arr, int[] output,boolean[] visited, int depth, int n, int r){
         if(depth == r){
             for(int i=0; i<r; i++){
                 System.out.print(output[i]+" ");
