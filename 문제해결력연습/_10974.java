@@ -1,17 +1,12 @@
-package 백준.Silver;
+package 문제해결력연습;
 
-// < 알고리즘 유형 >
-// 브루트포스(순열)
-
-// < 풀이 접근 >
-// *. 순열 (중복 x) but (순서 o)
-// *. 시간복잡도 O(N!) 8이하의 정수이므로 통과
-// 1. permutation을 구현하여 답을 구한다.
-
+//사전순 출력
+//순열 (중복x ) but (순서 o)
+// O(n!)
 
 import java.util.Scanner;
 
-public class _10974_모든_순열 {
+public class _10974 {
     static int N;
     static int[] arr;
     static int[] output;
