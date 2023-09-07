@@ -1,4 +1,4 @@
-package 문제해결력연습;
+package 백준.Silver;
 
 // < 알고리즘 유형 >
 // 완전탐색(백트래킹)
@@ -13,53 +13,55 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class _1182_부분수열의_합 {
+public class _1182_부분수열의_합_완전탐색 {
 
-    static int[] arr;
-    static int[] output;
-    static boolean[] visited;
-    static int count = 0;
     static int N;
     static int S;
+    static int[] arr;
+    static boolean[] visited;
+    static int cnt = 0;
+
+    static int[] output;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
         N = Integer.parseInt(st.nextToken());
         S = Integer.parseInt(st.nextToken());
 
         arr = new int[N];
-        output = new int[N];
         visited = new boolean[N];
+        output = new int[N];
 
-        st= new StringTokenizer(br.readLine()," ");
-        for(int i=0; i< arr.length; i++){
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        combination(0,0,0);
+        for (int i = 1; i <= N; i++) {
+            combination(0, 0, i, 0);
+        }
+        System.out.println(cnt);
     }
 
-    static void combination(int depth, int start, int sum){
-
-        if(depth>N){
-            return;
-        }
-        if(sum == S){
-            count++;
-            for(int i=0; i<depth; i++){
-                System.out.print(output[i]+" ");
+    public static void combination(int depth, int start, int r, int sum) {
+        if (depth == r) {
+            if (sum == S) {
+                for (int i = 0; i < depth; i++) {
+                    System.out.print(output[i] + " ");
+                }
+                System.out.println();
+                cnt++;
             }
-            System.out.println();
-//            System.out.println(count);
             return;
         }
 
-        for(int i=start; i<N; i++){
-            if(!visited[i]) {
+        for (int i = start; i < N; i++) {
+            if (!visited[i]) {
                 visited[i] = true;
                 output[depth] = arr[i];
-                combination(depth + 1, i+1, sum + arr[i]);
+                combination(depth + 1, i + 1, r, sum + arr[i]);
                 visited[i] = false;
             }
         }
