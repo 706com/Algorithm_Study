@@ -1,14 +1,12 @@
 package 백준.Silver;
 //[백준]11279 : 최대 힙 - JAVA(자바)
 
-//< 나의 알고리즘 >
-//priority Queue 사용 : 내림차순이니까 reverse !
+// < 알고리즘 유형 >
+// 자료구조, 우선순위큐
 
-//< 답안 알고리즘 >
-
-//< 새로 알게된 것 >
-
-//< 궁금한 것 >
+// < 풀이 접근 >
+// 1. priorityQueue 를 선언한다. ( 자바는 최소힙이 디폴트값 이므로 reverseOrder() 를 해준다.)
+// 2. 0을 기준으로 출력을 판별한다.
 
 import java.io.BufferedReader;
 import java.io.IOException;
