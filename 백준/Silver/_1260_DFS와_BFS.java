@@ -1,89 +1,94 @@
 package 백준.Silver;
-//[백준]1260 : DFS와 BFS - JAVA(자바)
+// < 알고리즘 유형 >
+// 그래프 탐색
 
-//< 나의 알고리즘 >
-// dfs - 스택(재귀) , bfs - 큐로 구현
-
-//< 답안 알고리즘 >
-
-//< 새로 알게된 것 >
-
-//< 궁금한 것 >
+// < 풀이 접근 >
+// 1. 노드와 간선을 연결한다.
+// 2. DFS 를 구현한다. (재귀 or Stack)
+// 3. 초기화를 진행한다.
+// 4. BFS 를 구현한다. (Queue)
+// 5. 값을 출력한다.
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.io.IOException;
+
 import java.util.StringTokenizer;
+import java.util.Queue;
+import java.util.LinkedList;
 
 public class _1260_DFS와_BFS {
-    static StringBuilder sb = new StringBuilder();
 
-    static int N,M,V;
-    static int[][] node;
+    static int[][] arr;
     static boolean[] visited;
 
-    static Queue<Integer> q;
-    public static void main(String[] args) throws IOException {
+    static int N,M,V;
+    static StringBuilder sb = new StringBuilder();
+    public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        StringTokenizer st;
 
-        N = Integer.parseInt(st.nextToken());   //정점의 개수
-        M = Integer.parseInt(st.nextToken());   //간선의 개수
-        V = Integer.parseInt(st.nextToken());   //탐색 시작할 정점의 번호
+        st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        V = Integer.parseInt(st.nextToken());
 
-        node = new int[N+1][N+1];
+        arr = new int[N+1][N+1];
         visited = new boolean[N+1];
 
-        //노드-간선 연결
-        for(int i =0; i<M; i++){
-            st = new StringTokenizer(br.readLine()," ");
+        // 1. 노드와 간선을 연결한다.
+        for(int i=0; i<M; i++){
+            st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-            node[a][b] = 1;
-            node[b][a] = 1;
+            int b= Integer.parseInt(st.nextToken());
+            arr[a][b] = arr[b][a] = 1;
         }
 
-        //DFS 수행
+//        for(int i=1; i<=N; i++){
+//            for(int j=1; j<=N; j++){
+//                System.out.print(arr[i][j]+" ");
+//            }
+//            System.out.println();
+//        }
+        // 2. DFS 를 구현한다. (재귀 or Stack)
         dfs(V);
 
-        //방문기록 초기화
+        // 3. 초기화를 진행한다.
         visited = new boolean[N+1];
         sb.append('\n');
 
-        //BFS 수행
+        // 4. BFS 를 구현한다. (Queue)
         bfs(V);
 
+        // 5. 값을 출력한다.
         System.out.println(sb);
-    }
-    static void dfs(int start){
-        visited[start] = true;
-        sb.append(start+" ");
 
+    }
+
+    static void dfs(int num){
+        visited[num] = true;
+        sb.append(num).append(" ");
         for(int i=1; i<=N; i++){
-            if(node[start][i] ==1 && !visited[i]){
+            if(!visited[i] && arr[num][i] == 1){
                 dfs(i);
             }
         }
     }
-
-    static void bfs(int start){
-        q = new LinkedList<>();
-        q.offer(start);
-        visited[start] = true;
+    static void bfs(int num){
+        Queue<Integer> q = new LinkedList<>();
+        q.offer(num);
+        visited[num] = true;
+        sb.append(num).append(' ');
 
         while(!q.isEmpty()){
-            start = q.poll();
-            sb.append(start+" ");
-
+            int node = q.poll();
             for(int i=1; i<=N; i++){
-                if(node[start][i] ==1 && !visited[i]){
+                if(!visited[i] && arr[node][i] ==1){
                     q.offer(i);
                     visited[i] = true;
+                    sb.append(i).append(' ');
                 }
             }
         }
     }
-
 }
