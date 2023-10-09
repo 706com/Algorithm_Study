@@ -1,4 +1,4 @@
-package 문제해결력연습;
+package SWEA;
 
 // < 알고리즘 유형 >
 // 스택
