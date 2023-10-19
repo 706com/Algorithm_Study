@@ -5,7 +5,12 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 
 import java.util.StringTokenizer;
-import java.util.Arrays;
+
+// < Refactor >
+// 초기 arr 로 계속 활용하려다 보니까, 함수가 많아지고 코드가 지저분해졌다. (+쓸데없는 시간낭비)
+// 계속 같은방향으로 회전 시킨다는걸 이용했다면 하나의 함수로 묶을 수 있다는 것을
+// 팀원들 코드 보고 깨달음.... OTL
+
 
 public class _1961_숫자_배열_회전 {
 
