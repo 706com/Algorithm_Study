@@ -8,46 +8,40 @@ import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 public class _1225_암호생성기 {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = 10;
+        int count = 1;
 
-        int T = 10; //문제오류
-        int count=1;
-
-        while(count<10) {
+        while(count<=T){
             count = Integer.parseInt(br.readLine());
-
+            int N = 8;
             Deque<Integer> deq = new LinkedList<>();
 
-            StringTokenizer st = new StringTokenizer(br.readLine()," ");
-            for(int i=0; i<8; i++) {
+            StringTokenizer st= new StringTokenizer(br.readLine());
+            for(int i=0; i<N; i++){
                 deq.offerLast(Integer.parseInt(st.nextToken()));
             }
 
-            int cnt =1;
-            while(deq.peekLast()!=0) {
-                int num = deq.pollFirst();
-
-                if(num-cnt>=0) {
-                    num = num-cnt;
-                }
-                else {
+            int i = 1;
+            while(deq.peekLast()!=0){
+                int num = deq.pollFirst()-i;
+                if(num<0){
                     num = 0;
                 }
-                cnt++;
-                if(cnt==6) {
-                    cnt=1;
-                }
                 deq.offerLast(num);
+                i++;
+                if(i==6){
+                    i=1;
+                }
             }
-//			System.out.println(deq.toString());
 
             System.out.printf("#%d ",count);
-            for(int i=0; i<8; i++) {
-                System.out.print(deq.pollFirst()+" ");
+            for(int a=0; a<8; a++) {
+                System.out.print(deq.pollFirst() + " ");
             }
             System.out.println();
-
+            count++;
         }
     }
 }

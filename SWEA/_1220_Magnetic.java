@@ -6,80 +6,53 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class _1220_Magnetic {
-    static int[][] arr;
-    static boolean[][] visited;
 
     static int N;
     static int result;
-
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = 10;
+        int count =1;
 
-        int count = 1;
-
-        while(count<=10) {
+        while(count<=T){
             N = Integer.parseInt(br.readLine());
-
-            arr = new int[N][N];
-            visited = new boolean[N][N];
             result = 0;
+            int[][] arr = new int[N][N];
 
-            for(int i=0; i<N; i++) {
-                StringTokenizer st = new StringTokenizer(br.readLine());
-                for(int j=0; j<N; j++) {
+            StringTokenizer st;
+            for(int i=0; i<N; i++){
+                st = new StringTokenizer(br.readLine());
+                for(int j=0; j<N; j++){
                     arr[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
 
-
-            for(int i=0; i<N; i++) {
-                for(int j=0; j<N; j++) {
-                    if(!visited[i][j]) {
-                        if(arr[i][j] == 1)
-                            down(i,j);
-//						if(arr[i][j] == 2) {
-//							up(i,j);
-//						}
-                    }
+            // 세로로 잘라내기.
+            for(int i=0; i<N; i++){
+                int[] newArr = new int[N];
+                for(int j=0; j<N; j++){
+                    newArr[j] = arr[j][i];
                 }
+                //한줄씩 체크
+                scan(newArr);
             }
 
             System.out.printf("#%d %d\n",count,result);
             count++;
         }
     }
-    static void down(int x,int y) {
-        visited[x][y] = true;
-        for(int i=x+1; i<N; i++) {
-            if(arr[i][y] == 1 && !visited[i][y]) {
-                visited[i][y] = true;
+
+    // 교착 조건 : 빨강색 기준으로 파랑색을 만나면 교착된다.
+    static void scan(int[] arr){
+        int check = 0;
+        for(int i=0; i<N; i++){
+            if(arr[i] == 1){
+                check= 1;
             }
-            if(arr[i][y] == 2 && !visited[i][y]) {
-                visited[i][y] = true;
+            if(check == 1 && arr[i] == 2){
+                check = 2;
                 result++;
-                return;
-            }
-            if(i == N-1) {
-                return;
             }
         }
     }
-
-//	static void up(int x,int y) {
-////		System.out.println("들어왔 "+x+" "+y);
-//		visited[x][y] = true;
-//		for(int i=x-1; i>=0; i--) {
-//			if(arr[i][y] == 2 && visited[i][y]) {
-//				continue;
-//			}
-//			if(arr[i][y] == 1 && !visited[i][y]) {
-//				visited[i][y] = true;
-//				result++;
-//				return;
-//			}
-//			if(i == 0) {
-//				return;
-//			}
-//		}
-//	}
 }
