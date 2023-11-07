@@ -44,7 +44,7 @@ public class _5215_햄버거_다이어트 {
                     if(kcal[i] > j){
                         dp[i][j] = dp[i-1][j];
                     } else{
-                        dp[i][j] = Math.max(dp[i-1][j],dp[i-1][j-kcal[i]] + score[i]);
+                        dp[i][j] = Math.max(dp[i-1][j],score[i]+dp[i-1][j-kcal[i]]);
                     }
                 }
             }
