@@ -18,30 +18,28 @@ import java.util.Queue;
 import java.util.LinkedList;
 
 public class _1954_달팽이_숫자 {
-
     static int N;
-    static int dir = 0;
-
     static int[][] arr;
-    static boolean[][] visited;
+    static int cnt;
 
-    static int[] dx = {0,1,0,-1};   // 하 상
-    static int[] dy = {1,0,-1,0};   // 우 좌
-
-    public static void main (String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         int T = Integer.parseInt(br.readLine());
         int count = 1;
 
-        while(T-->0){
+        while(count<=T){
             N = Integer.parseInt(br.readLine());
+
             arr = new int[N][N];
-            visited = new boolean[N][N];
-            dir = 0;
+            cnt = 1;
 
-            dfs(0,0);
-
+            for(int i=0; i<N; i++){
+                for(int j=0; j<N; j++){
+                    if(arr[i][j] == 0) {
+                        dfs(i, j);
+                    }
+                }
+            }
             System.out.printf("#%d\n",count);
             for(int i=0; i<N; i++){
                 for(int j=0; j<N; j++){
@@ -51,38 +49,32 @@ public class _1954_달팽이_숫자 {
             }
             count++;
         }
-
-
     }
     static void dfs(int x, int y){
+        int[] dx = {1,0,-1,0};  //우-하-좌-상
+        int[] dy = {0,1,0,-1};
+        arr[x][y] = cnt;
+        cnt++;
+        int nx = x;
+        int ny= y;
 
+        for(int i=0; i<4; i++){
+            while(true){
+                nx = nx+dx[i];
+                ny = ny+dy[i];
 
-        for(int i=1; i<=N*N; i++){
-
-
-
-            arr[x][y] = i;
-            visited[x][y] = true;
-
-            int nx = x + dx[dir];
-            int ny = y + dy[dir];
-
-
-            if(nx<0 || ny<0 || nx>=N || ny>=N || visited[nx][ny] == true){
-                dir = (dir + 1) % 4;
+                if(nx<0 || nx>=N || ny<0 || ny>=N){
+                    break;
+                }
+                if(arr[ny][nx]!=0){
+                    break;
+                }
+                arr[ny][nx] = cnt;
+                cnt++;
             }
-
-            x = x + dx[dir];
-            y = y + dy[dir];
-
-        }
-    }
-    static class Node{
-        int x;
-        int y;
-        Node(int x,int y){
-            this.x = x;
-            this.y = y;
+            // 범취초과해서 break 당한채로 저장됐기에, 이전값으로 돌려놓기.
+            nx = nx - dx[i];
+            ny = ny - dy[i];
         }
     }
 }
