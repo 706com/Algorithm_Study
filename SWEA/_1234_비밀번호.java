@@ -1,5 +1,7 @@
 package SWEA;
 
+//19분
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,5 +31,33 @@ public class _1234_비밀번호 {
             count++;
         }
     }
-
 }
+
+//    public static void main(String[] args) throws IOException {
+//        BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+//        int T = 10;
+//        int count = 1;
+//        while(count<=T){
+//            StringTokenizer st = new StringTokenizer(br.readLine());
+//            int N = Integer.parseInt(st.nextToken());
+//            String str = st.nextToken();
+//
+//            int start =0;
+//            int end;
+//            while(true) {
+//                if(start==str.length()-1){
+//                    break;
+//                }
+//                end = start + 1;
+//                if (str.charAt(start) == str.charAt(end)) {
+//                    str = str.substring(0, start) + str.substring(end+1, str.length());
+//                    start = 0;
+//                    continue;
+//                }
+//                start++;
+//            }
+//
+//            System.out.printf("#%d %s\n",count,str);
+//            count++;
+//        }
+//    }
