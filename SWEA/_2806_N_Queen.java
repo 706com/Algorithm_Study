@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
+//9분
+
 // < 알고리즘 유형 >
 // 백트래킹
 
