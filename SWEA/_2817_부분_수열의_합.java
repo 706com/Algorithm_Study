@@ -5,24 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-// 백트래킹 (아오 헷갈려)
+// 백트래킹
 //< 풀이 접근 >
 //*. 순서 상관없고, 중복이 허용되지 않는 조합.
 //*. 조합은 O(2^n) n = 20이므로 시간복잡도는 무난히 통과!
 //1. combination (중복x, 순서x) 함수를 구현한다.
-
-/*
- * <결과> (배열 인덱스 탐색 과정)
- * 0
- * 01
- * 02
- * 023
- * 03
- * 12
- * 13
- * 23
- * 3
-*/
 
 public class _2817_부분_수열의_합 {
 
