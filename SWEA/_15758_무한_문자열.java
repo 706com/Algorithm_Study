@@ -18,39 +18,24 @@ public class _15758_무한_문자열 {
             String T = st.nextToken();
             String result = "";
 
-            if(S.length()>=T.length()){
-                if(S.indexOf(T)==0){
-                    while(T.length()<=100){
-                        T+=T;
-                    }
-                    S+=S;
-                    if(T.indexOf(S)==0) {
-                        result = "yes";
-                    }
-                    else{
-                        result = "no";
-                    }
-                }
-                else{
-                    result = "no";
-                }
+            String tempS = "";
+            String tempT = "";
+            while(tempS.length()<=100){
+                tempS+=S;
+            }
+            tempS= tempS.substring(0,100);
+            while(tempT.length()<=100){
+                tempT+=T;
+            }
+            tempT= tempT.substring(0,100);
+//            System.out.println(tempS);
+//            System.out.println(tempT);
+
+            if(tempT.equals(tempS)){
+                result = "yes";
             }
             else{
-                if(T.indexOf(S)==0){
-                    while(S.length()<=100){
-                        S+=S;
-                    }
-                    T+=T;
-                    if(S.indexOf(T)==0) {
-                        result = "yes";
-                    }
-                    else{
-                        result = "no";
-                    }
-                }
-                else{
-                    result = "no";
-                }
+                result = "no";
             }
 
             System.out.printf("#%d %s\n",count,result);
