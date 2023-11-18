@@ -8,110 +8,97 @@ package SWEA;
 // 2. 열 9개에 문제가 없는지 탐색한다.
 // 3. 1/3 을 한 분할부분이 문제가 없는지 탐색한다.
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
+//28분 소요
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class _1974_스도쿠_검증 {
-
-    static int N = 9;
-    static int test = 1;
-    static int[][] arr;
-    static boolean[] visited;
+    static int N;
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+        int T  =Integer.parseInt(br.readLine());
+        int count = 1;
+        while(count<=T){
+            N = 9;
+            int result = 0;
 
-        int T = Integer.parseInt(br.readLine());
-
-        while(T--> 0){
-            boolean check = true;
-            arr = new int[N][N];
-            visited = new boolean[N+1];
-
+            int[][] arr = new int[N][N];
             for(int i=0; i<N; i++){
                 StringTokenizer st = new StringTokenizer(br.readLine());
                 for(int j=0; j<N; j++){
-                    int n = Integer.parseInt(st.nextToken());
-                    arr[i][j] = n;
+                    arr[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
-
-            // 행 체크
+            //가로탐색
+            boolean check = true;
             for(int i=0; i<N; i++){
-                if(!check(arr[i])){
-                    check = false;
+                check = search(arr[i]);
+                if(!check){
+                    break;
                 }
-                visited = new boolean[N+1];
-
             }
-
-            // 열 체크
+            //세로탐색
             for(int i=0; i<N; i++){
-                int[] colArr = new int[N];
-
-                for(int j=0; j<N; j++) {
-                    colArr[j] = arr[j][i];
+                //이전에 스도쿠가 아닌게 있으면 탐색 의미 없음
+                if(!check){
+                    break;
                 }
-                if(!check(colArr)){
-                    check = false;
+                int[] newArr = new int[N];
+                for(int j=0; j<N; j++){
+                    newArr[j] = arr[j][i];
                 }
-                visited = new boolean[N+1];
-
+                check = search(newArr);
             }
-
-            int[] boxArr = new int[N];
-            //분할 체크
-            int row = 0;
-            int col = 0;
-            for(int i=0; i<3;i++){
-                for(int j=0; j<3; j++) {
-                    for (int a = col; a < col + 3; a++) {
-                        int k = 0;
-                        for (int b = row; b < row + 3; b++) {
-                            if(a%3==0) {
-                                boxArr[k] = arr[a][b];
-                            }
-                            else if(a%3==1) {
-                                boxArr[k + 3] = arr[a][b];
-                            }
-                            else if(a%3==2) {
-                                boxArr[k + 6] = arr[a][b];
-                            }
-                            k++;
-                        }
-                    }
-//                    for(int x : boxArr){
-//                        System.out.print(x+" ");
-//                    }
-//                    System.out.println();
-                    row = (row + 3) % 9;
-                    if(!check(boxArr)){
-                        check = false;
-                    }
-                    visited = new boolean[N+1];
+            //3*3 탐색
+            int start= 0;
+            for(int i=0; i<N; i++){
+                if(!check){
+                    break;
                 }
-                col = (col+3) % 9;
+                check = search2(arr,start);
+                if(i!=0 && i%3==0){
+                    start+=3;
+                }
             }
-
             if(check){
-                System.out.printf("#%d 1",test);
+                result = 1;
             }
             else{
-                System.out.printf("#%d 0",test);
+                result = 0;
             }
-            test++;
+            System.out.printf("#%d %d",count,result);
             System.out.println();
+            count++;
         }
     }
-    static boolean check(int[] num){
-        for(int x : num){
-            if(!visited[x]){
-                visited[x] = true;
+    static boolean search(int[] arr){
+        int[] num = new int[10];
+        //탐색 후 1~9 숫자세기
+        for(int i=0; i<N; i++){
+            num[arr[i]]++;
+        }
+        // 하나라도 0이 있다 -> 어딘가에 겹치는 숫자가 있다
+        for(int i=1; i<=N; i++){
+            if(num[i] == 0){
+                return false;
             }
-            else{
+        }
+        return true;
+    }
+
+    static boolean search2(int[][] arr,int start){
+        int[] num = new int[10];
+        for(int i=start; i<start+3; i++){
+            for(int j=start; j<start+3; j++){
+                num[arr[i][j]]++;
+            }
+        }
+        for(int i=1; i<=N; i++){
+            if(num[i] == 0){
                 return false;
             }
         }
