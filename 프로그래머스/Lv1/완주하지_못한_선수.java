@@ -19,29 +19,23 @@ import java.util.HashMap;
 
 public class 완주하지_못한_선수 {
     public String solution(String[] participant, String[] completion) {
-        HashMap<String,Integer> map = new HashMap<>();
         String answer = "";
+        HashMap<String,Integer> map = new HashMap<>();
 
-        //참가자 명단 넣기
-        //동명이인 일 경우, 같은 이름을 가진 key 에 +1
         for(int i=0; i<participant.length; i++){
             map.put(participant[i],map.getOrDefault(participant[i],0)+1);
         }
 
-        //완주자 찾기
-        //카운트 하나씩 빼주기
         for(int i=0; i<completion.length; i++){
             map.put(completion[i],map.get(completion[i])-1);
         }
 
-        //hash에 담겨있는 값 증 1 찾기
         for(String key : map.keySet()){
-            if(map.get(key) != 0){
+            if(map.get(key) == 1){
                 answer = key;
                 break;
             }
         }
-
         return answer;
     }
     public static void main(String[] args){
