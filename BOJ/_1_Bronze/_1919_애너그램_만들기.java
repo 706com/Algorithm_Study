@@ -33,6 +33,5 @@ public class _1919_애너그램_만들기 {
             result += Math.abs(alpha1[i]-alpha2[i]);
         }
         System.out.println(result);
-
     }
 }
