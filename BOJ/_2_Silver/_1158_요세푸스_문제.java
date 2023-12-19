@@ -1,14 +1,7 @@
 package BOJ._2_Silver;
 //[백준]1158 : 요세푸스 문제 - JAVA(자바)
 
-//< 나의 알고리즘 >
-// Queue를 이용한다.
-
-//< 답안 알고리즘 >
-
-//< 새로 알게된 것 >
-
-//< 궁금한 것 >
+//소요시간 : 8분
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,7 +12,7 @@ import java.util.StringTokenizer;
 
 public class _1158_요세푸스_문제 {
     public static void main(String[] args) throws IOException {
-        BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(br.readLine());
 
@@ -31,17 +24,21 @@ public class _1158_요세푸스_문제 {
         for(int i=1; i<=N; i++){
             q.offer(i);
         }
+
         sb.append('<');
 
+        int count = 1;
         while(!q.isEmpty()){
-            for(int i=0; i<K-1; i++){
+            if(count == K){
+                sb.append(q.poll()).append(", ");
+                count = 0;
+            }
+            else{
                 q.offer(q.poll());
             }
-            sb.append(q.poll()).append(", ");
+            count++;
         }
-
-        // 마지막 ', ' 삭제
-        sb.deleteCharAt(sb.length()-1).deleteCharAt(sb.length()-1);
+        sb.delete(sb.length()-2,sb.length());
         sb.append('>');
         System.out.println(sb);
     }
