@@ -1,161 +1,62 @@
 package BOJ._2_Silver;
 //[백준]10845 : 큐 - JAVA(자바)
 
-//<새로 알게된 것>
-//queue 는 선언할 때 new Queue 가 아닌, new LinkedList 사용
-//queue.offer = 맨 뒤에 삽입  ,  queue.push = 맨 앞에 삽입
-//queue 메소드는 인덱스 접근이 불가능.
-
-//<궁금한 것>
-//Queue 의 인덱스 접근이 불가능하다면, 가운데 값 뽑아내기 위해선 LinkedList 로 구현해야 할까?
-
-//+ queue 클래스에선 lastindex 접근이 어렵기 때문에 , LinkedList 로 구현
+//소요시간 : 7분
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 public class _10845_큐 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
+        Deque<Integer> q = new LinkedList<>();
         int N = Integer.parseInt(br.readLine());
-        LinkedList<Integer> q = new LinkedList<>();
 
         for(int i=0; i<N; i++){
-            StringTokenizer st = new StringTokenizer(br.readLine()," ");
-            String command = st.nextToken();
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            String command  = st.nextToken();
 
-            switch(command){
+            switch (command){
                 case "push":
                     int num = Integer.parseInt(st.nextToken());
                     q.offer(num);
                     break;
                 case "pop":
                     if(q.isEmpty()){
-                        sb.append("-1").append('\n');
+                        System.out.println("-1");
                         break;
                     }
-                    sb.append(q.poll()).append('\n');
+                    System.out.println(q.pollFirst());
                     break;
                 case "size":
-                    sb.append(q.size()).append('\n');
+                    System.out.println(q.size());
                     break;
                 case "empty":
                     if(q.isEmpty()){
-                        sb.append("1").append('\n');
+                        System.out.println("1");
+                        break;
                     }
-                    else{
-                        sb.append("0").append('\n');
-                    }
+                    System.out.println("0");
                     break;
                 case "front":
                     if(q.isEmpty()){
-                        sb.append("-1").append('\n');
+                        System.out.println("-1");
                         break;
                     }
-                    sb.append(q.getFirst()).append('\n');
+                    System.out.println(q.peekFirst());
                     break;
                 case "back":
                     if(q.isEmpty()){
-                        sb.append("-1").append('\n');
+                        System.out.println("-1");
                         break;
                     }
-                    sb.append(q.getLast()).append('\n');
+                    System.out.println(q.peekLast());
                     break;
             }
         }
-        System.out.println(sb);
     }
 }
-
-
-
-
-
-//    static Queue<Integer> q = new LinkedList<>();
-//    public static void main(String[] args) throws IOException {
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        StringBuilder sb = new StringBuilder();
-//        int N = Integer.parseInt(br.readLine());
-//
-//        int num = 0;
-//        for(int i=0; i<N; i++){
-//            StringTokenizer st = new StringTokenizer(br.readLine()," ");
-//            String command = st.nextToken();
-//
-//            switch(command){
-//                case "push":
-//                    num = Integer.parseInt(st.nextToken());
-//                    push(num);
-//                    break;
-//
-//                case "pop":
-//                    sb.append(pop()).append("\n");
-//                    break;
-//
-//                case "size":
-//                    sb.append(size()).append("\n");
-//                    break;
-//
-//                case "empty":
-//                    sb.append(empty()).append("\n");
-//                    break;
-//
-//                case "front":
-//                    sb.append(front()).append("\n");
-//                    break;
-//
-//                case "back":
-//                    sb.append(back(num)).append("\n");
-//                    break;
-//            }
-//        }
-//        System.out.println(sb);
-//
-//    }
-//    public static void push(int num){
-//        q.offer(num);
-//    }
-//    public static int pop(){
-//        if(q.isEmpty()){
-//            return -1;
-//        }
-//        else{
-//            return q.poll();
-//        }
-//    }
-//    public static int size(){
-//        return q.size();
-//    }
-//    public static int empty(){
-//        if(q.isEmpty()){
-//            return 1;
-//        }
-//        else{
-//            return 0;
-//        }
-//    }
-//
-//    //front = 가장 처음에 push 된 값
-//    public static int front(){
-//        if(q.isEmpty()){
-//            return -1;
-//        }
-//        else{
-//            return q.peek();
-//        }
-//    }
-//
-//    //back = 가장 마지막에 push 된 값
-//    //사실 main 문에서 해결을 해야하지만, 형식을 지키기 위해 이렇게 작성
-//    public static int back(int num){
-//        if(q.isEmpty()){
-//            return -1;
-//        }
-//        else{
-//            return num;
-//        }
-//    }
