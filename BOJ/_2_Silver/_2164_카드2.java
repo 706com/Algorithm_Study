@@ -1,42 +1,32 @@
 package BOJ._2_Silver;
 
-//< 알고리즘 유형 >
-// 덱
+//소요 시간 : 4분
 
-//< 알고리즘 풀이 >
-// 큐 상위호환인 덱을 활용하자 ! -> 이 좋은걸 왜안써?
-
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Deque;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.Queue;
 
 public class _2164_카드2 {
     public static void main(String[] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
-
-        int N = sc.nextInt();
-
-        Deque<Integer> deq = new LinkedList<>();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Queue<Integer> q = new LinkedList<>();
+        int N = Integer.parseInt(br.readLine());
 
         for(int i=1; i<=N; i++){
-            deq.offer(i);
+            q.offer(i);
         }
 
-        while(deq.size() != 1){
-
-            deq.poll();
-
-            if(deq.size()==1){
-                break;
-            }
-            else{
-                deq.offerLast(deq.pollFirst());
-            }
+        while(q.size() != 1){
+            q.poll();
+            q.offer(q.poll());
         }
-        System.out.println(deq.peek());
+
+        System.out.println(q.peek());
     }
 }
+
 
 
 
