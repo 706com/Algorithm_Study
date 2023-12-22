@@ -1,4 +1,4 @@
-package BOJ;
+package BOJ._3_Gold;
 
 //소요시간 : 25분 (시간초과) : 답봄
 //소요시간 : 20분
