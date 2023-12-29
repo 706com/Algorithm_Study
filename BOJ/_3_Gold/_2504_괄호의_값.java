@@ -1,6 +1,6 @@
-package BOJ;
+package BOJ._3_Gold;
 
-//소요시간 : 1시간(실패 empty stack) -> 형변환 , 예외처리 주의하기.
+//소요시간 : 1시간(구현) + 15분(예외처리) -> 형변환 , 예외처리 주의하기.
 
 //String : isInt() 메서드 만들기
 
@@ -35,7 +35,7 @@ public class _2504_괄호의_값 {
                 // 앞이 숫자
                 else if(isInt(stk.peek())){
                     temp = Integer.parseInt(stk.pop());
-                    if(stk.peek().equals("(")){
+                    if(!stk.isEmpty() && stk.peek().equals("(")){
                         stk.pop();
                         temp = temp * 2;
                         stk.push(String.valueOf(temp));
@@ -56,15 +56,15 @@ public class _2504_괄호의_값 {
                     error = true;
                     break;
                 }
-                // () == 2
+                // [] == 3
                 if(stk.peek().equals("[")){
                     stk.pop();
                     stk.push("3");
                 }
-                // 앞이 숫자
+                // 앞이 숫자 [x]
                 else if(isInt(stk.peek())){
                     temp = Integer.parseInt(stk.pop());
-                    if(stk.peek().equals("[")){
+                    if(!stk.isEmpty() && stk.peek().equals("[")){
                         stk.pop();
                         temp = temp * 3;
                         stk.push(String.valueOf(temp));
@@ -73,7 +73,7 @@ public class _2504_괄호의_값 {
                         error = true;
                     }
                 }
-                // 앞이 '['
+                // 앞이 '('
                 else{
                     error = true;
                 }
@@ -95,6 +95,15 @@ public class _2504_괄호의_값 {
             }
         }
         if(error){
+            System.out.println("0");
+        }
+        else if(stk.isEmpty()){
+            System.out.println("0");
+        }
+        else if(!stk.isEmpty() && !isInt(stk.peek())){
+            System.out.println("0");
+        }
+        else if(stk.size() != 1){
             System.out.println("0");
         }
         else{
