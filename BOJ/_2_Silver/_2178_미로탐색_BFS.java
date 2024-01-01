@@ -1,9 +1,6 @@
 package BOJ._2_Silver;
-//<새로 알게된 것>
-//bfs 거리 측정할 때 visit(boolean) 의 응용 -> dist(int)
 
-//<궁금한 것>
-// 어떻게 최솟값을 도출한거지? -> (방문한 곳은 continue 했으니, dist 값은 node의 dist +1)
+//소요시간 : 12분
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,45 +32,30 @@ public class _2178_미로탐색_BFS {
                 board[i][j] = Character.getNumericValue(c);
             }
         }
-        for(int i=1; i<=N; i++){
-            for(int j=1; j<=M; j++){
-                dist[i][j] = 0;
-            }
-        }
-
-//        //확인
-//        for(int i=1; i<=N; i++){
-//            for(int j=1; j<=M; j++){
-//                System.out.print(board[i][j]);
-//            }
-//            System.out.println();
-//        }
-//        System.out.println();
 
         bfs(1,1);
+
         System.out.println(dist[N][M]);
     }
     public static void bfs(int x,int y){
         Queue<Node> q= new LinkedList<>();
-        Node node = new Node(x,y);
-        q.offer(node);
-        dist[x][y]++;
-        int count = 0;
-        while(!q.isEmpty()){
+        q.offer(new Node(x,y));
+        dist[x][y] = 1;
 
-            node = q.poll();
+        while(!q.isEmpty()){
+            Node node = q.poll();
             for(int i=0; i<4; i++){
                 int nx = node.x + dx[i];
                 int ny = node.y + dy[i];
 
-                if(nx<1 || nx>N || ny<1 || ny>M ){
+                if(nx<=0 || nx>N || ny<=0 || ny>M ){
                     continue;
                 }
-                if(board[nx][ny] ==0 || dist[nx][ny] > 0){
+                if(board[nx][ny] ==0 || dist[nx][ny] != 0){
                     continue;
                 }
-                dist[nx][ny] = dist[node.x][node.y]+1;
                 q.offer(new Node(nx,ny));
+                dist[nx][ny] = dist[node.x][node.y]+1;
             }
         }
     }
@@ -81,7 +63,6 @@ public class _2178_미로탐색_BFS {
         int x;
         int y;
         Node(int x,int y){
-            super();
             this.x = x;
             this.y = y;
         }
