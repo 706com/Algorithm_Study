@@ -1,18 +1,13 @@
 package BOJ._2_Silver;
 //[백준]1012 : 유기농 배추 - JAVA(자바)
 
-//< 나의 알고리즘 >
-// dfs(재귀) 로 풀면 될 것이다.
-
-//< 답안 알고리즘 >
-
-//< 새로 알게된 것 >
-
-//< 궁금한 것 >
+//소요시간 : 9분
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class _1012_유기농_배추 {
@@ -77,3 +72,35 @@ public class _1012_유기농_배추 {
         }
     }
 }
+
+// bfs
+//    static void bfs(int x, int y){
+//        Queue<Node> q = new LinkedList<>();
+//        q.offer(new Node(x,y));
+//        visited[x][y] = true;
+//
+//        while(!q.isEmpty()){
+//            Node node = q.poll();
+//            for(int i=0; i<4; i++){
+//                int nx = node.x + dx[i];
+//                int ny = node.y + dy[i];
+//
+//                if(nx<0 || nx>=N || ny<0 || ny>=M){
+//                    continue;
+//                }
+//                if(arr[nx][ny] != 1 || visited[nx][ny]){
+//                    continue;
+//                }
+//                q.offer(new Node(nx,ny));
+//                visited[nx][ny] = true;
+//            }
+//        }
+//    }
+//static class Node{
+//    int x;
+//    int y;
+//    public Node(int x, int y) {
+//        this.x = x;
+//        this.y = y;
+//    }
+//}
