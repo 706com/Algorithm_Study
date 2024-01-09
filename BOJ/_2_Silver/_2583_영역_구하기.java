@@ -1,4 +1,4 @@
-package BOJ;
+package BOJ._2_Silver;
 
 //소요시간 : 33분 (초반 N,M,x,y 생각을 쓸데없이 너무 오래한 듯)
 
