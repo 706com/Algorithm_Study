@@ -1,18 +1,9 @@
 package BOJ._2_Silver;
 //[백준]1780 : 종이의 개수 - JAVA(자바)
 
-//< 나의 알고리즘 >
-// 문제를 보자 분할정복 문제라고 생각함.
-// 재귀를 통해 접근해야겠다.
+// 소요시간 : 20분(실패 : 구현실패)
+// 소요시간 : 14분
 
-//< 답안 알고리즘 >
-// 분할정복 - something like (쿼드트리)
-
-//< 새로 알게된 것 >
-// 분할 하려면 size 측정과 ,범위 생각은 필수!
-
-//< 궁금한 것 >
-//
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -67,25 +58,24 @@ public class _1780_종이의_개수 {
             return;
         }
 
-        else{
-            //종이 자르기
-            int newsize = size / 3;
+        //종이 자르기
+        int newsize = size / 3;
 
-            //윗쪽
-            paperCut(row,col,newsize);                      //위 왼쪽
-            paperCut(row,col+ newsize,newsize);         //위 가운데
-            paperCut(row ,col +newsize*2,newsize);      //위 오른쪽
+        //윗쪽
+        paperCut(row,col,newsize);                      //위 왼쪽
+        paperCut(row,col+ newsize,newsize);         //위 가운데
+        paperCut(row ,col +newsize*2,newsize);      //위 오른쪽
 
-            //중앙
-            paperCut(row + newsize , col,newsize);                 //중앙 왼쪽
-            paperCut(row + newsize ,col+newsize,newsize);      //중앙 가운데
-            paperCut(row + newsize ,col+newsize*2,newsize);    //중앙 오른쪽
+        //중앙
+        paperCut(row + newsize , col,newsize);                 //중앙 왼쪽
+        paperCut(row + newsize ,col+newsize,newsize);      //중앙 가운데
+        paperCut(row + newsize ,col+newsize*2,newsize);    //중앙 오른쪽
 
-            //아랫쪽
-            paperCut(row + newsize*2, col,newsize);                  //아래 왼쪽
-            paperCut(row + newsize*2, col+newsize,newsize);      //아래 가운데
-            paperCut(row + newsize*2 ,col+newsize*2,newsize);    //아래 오른쪽
-        }
+        //아랫쪽
+        paperCut(row + newsize*2, col,newsize);                  //아래 왼쪽
+        paperCut(row + newsize*2, col+newsize,newsize);      //아래 가운데
+        paperCut(row + newsize*2 ,col+newsize*2,newsize);    //아래 오른쪽
+
     }
 
     public static boolean sameColor(int row, int col, int size){
