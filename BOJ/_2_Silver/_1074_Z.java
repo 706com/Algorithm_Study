@@ -1,54 +1,48 @@
 package BOJ._2_Silver;
 //[백준]1012 : Z - JAVA(자바)
 
-//<새로 알게된 것>
-//분할정복 재귀 문제 (일반 재귀로 돌리면 시간초과)
-
-//<궁금한 것>
-//
+//소요시간 : 20분(실패 : 구현실패)
+//소요시간 : 30분
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-
 public class _1074_Z {
+    static int N,r,c;
     static int count = 0;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine()," ");
-        int N = Integer.parseInt(st.nextToken());
-        int r = Integer.parseInt(st.nextToken());   //행(row)
-        int c = Integer.parseInt(st.nextToken());   //열(column)
-        int size = (int)Math.pow(2,N);              //2^N == 한 변의 길이
-        find(r,c,size);
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        r = Integer.parseInt(st.nextToken());   //row
+        c = Integer.parseInt(st.nextToken());   //col
 
-        System.out.println(count);
+        search(r,c,(int)Math.pow(2,N));
     }
-
-    public static void find(int r,int c, int size){
-        //최종적으로 쪼개진 4분면사이즈
+    static void search(int row, int col, int size){
         if(size == 1){
+            System.out.println(count);
             return;
         }
-        //1사분면 -> count 증가없이, 사이즈만 줄이기
-        if(r < size/2 && c < size/2){
-            find(r,c,size/2);
+
+        size /= 2;
+        if(row < size && col < size){
+//            count += size*size;
+            search(row,col,size);
         }
-        //2사분면
-        else if (r < size/2 && c >= size/2){
-            count += size * size / 4;
-            find(r,c-size/2,size/2);
+        else if(row<size && col>=size){
+            count += size*size;
+            search(row,col-size,size);
         }
-        //3사분면
-        else if (r >= size/2 && c < size/2){
-            count += (size * size / 4) * 2;
-            find(r - size/2, c , size/2);
+        else if(row>=size && col<size){
+            count += size*size*2;
+            search(row-size,col,size);
         }
-        else{
-            count += (size * size / 4) * 3;
-            find(r-size/2 , c-size/2 ,size/2);
+        else if (row>=size && col>=size){
+            count += size*size*3;
+            search(row-size,col-size,size);
         }
     }
 }
