@@ -1,4 +1,4 @@
-package BOJ;
+package BOJ._3_Gold;
 
 //소요 시간 : 20분 (실패 :구현실패)
 // ❓
