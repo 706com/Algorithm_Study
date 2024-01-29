@@ -1,4 +1,4 @@
-package BOJ;
+package BOJ._2_Silver;
 
 //소요시간 : 20분 (실패: 구현실패)
 //소요시간 : 20분
