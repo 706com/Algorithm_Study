@@ -1,4 +1,4 @@
-package BOJ;
+package BOJ.fail;
 //[백준]6064 : 카잉 달력 - JAVA(자바)
 
 //< 나의 알고리즘 >

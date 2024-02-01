@@ -1,4 +1,4 @@
-package BOJ;
+package BOJ.fail;
 //[백준]1018 : 체스판 닷; 칠하기 - JAVA(자바)
 
 //<새로 알게된 것>
