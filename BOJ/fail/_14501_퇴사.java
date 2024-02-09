@@ -1,4 +1,4 @@
-package BOJ;
+package BOJ.fail;
 
 //소요시간 : 30M (실패 : 구현실패)
 
