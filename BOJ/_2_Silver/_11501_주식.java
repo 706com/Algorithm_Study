@@ -21,6 +21,7 @@ import java.util.StringTokenizer;
 public class _11501_주식 {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
         int T = Integer.parseInt(br.readLine());
 
         while(T-->0) {
@@ -46,7 +47,8 @@ public class _11501_주식 {
                 }
             }
             // 5. result 값을 출력시킨다.
-            System.out.println(result);
+            sb.append(result).append('\n');
         }
+        System.out.println(sb);
     }
 }
