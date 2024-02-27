@@ -1,44 +1,29 @@
 package 프로그래머스.Lv1;
 //[프로그래머스] 폰켓몬 - JAVA(자바)
 
-//< 알고리즘 유형 >
-// 해쉬
+//소요시간 : 5분
 
-//< 알고리즘 풀이 >
-// 1) HashSet 을 사용하여 문제 풀이
-
-//< 새로 알게된 것 >
-// HashSet
+// <HashSet Method>
 // add() 추가 , remove(값) 삭제 , size() 사이즈 , contains() 검색
-
-//< 궁금한 것 >
 
 import java.util.HashSet;
 
-public class 폰켓몬 {
+class 폰켓몬 {
     public int solution(int[] nums) {
         int answer = 0;
-        int max = nums.length/2;
+        HashSet<Integer> hs = new HashSet<>();
 
-        HashSet<Integer> set = new HashSet<>();
         for(int x : nums){
-            set.add(x);
+            hs.add(x);
         }
 
-        if(set.size()>=max){
-            answer = max;
+        if(hs.size()>=nums.length/2){
+            answer = nums.length/2;
         }
         else{
-            answer = set.size();
+            answer = hs.size();
         }
         return answer;
-    }
-
-    public static void main(String[] args) {
-        int[] nums = {3,1,2,3};
-
-        폰켓몬 sol = new 폰켓몬();
-        System.out.println(sol.solution(nums));
     }
 }
 
