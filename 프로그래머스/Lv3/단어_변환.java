@@ -1,20 +1,24 @@
 package 프로그래머스.Lv3;
 
-//소요시간 : 23분
+//소요시간 : 30분
 
 class 단어_변환 {
     static boolean[] visited;
     static int answer;
     public int solution(String begin, String target, String[] words) {
-        answer = 0;
+        answer = Integer.MAX_VALUE;
         visited = new boolean[words.length];
 
-        dfs(begin,target,words,answer);
+        dfs(begin,target,words,0);
+        if(answer == Integer.MAX_VALUE){
+            answer = 0;
+        }
         return answer;
     }
     public void dfs(String begin,String target, String[] words, int depth){
         if(begin.equals(target)){
-            answer = depth;
+            int result = depth;
+            answer = Math.min(answer,result);
             return;
         }
 
