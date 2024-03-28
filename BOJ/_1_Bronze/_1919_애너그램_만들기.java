@@ -2,6 +2,7 @@ package BOJ._1_Bronze;
 
 //소요시간 : 20분(실패) : 답봄
 //소요시간 : 4분
+//review : 12분 (답봄)
 
 import java.io.BufferedReader;
 import java.io.IOException;
