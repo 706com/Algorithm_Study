@@ -31,7 +31,6 @@ public class JadenCase_문자열_만들기 {
             if(s.substring(s.length()-1).equals(" ")){
                 return answer;
             }
-
             answer = answer.substring(0,answer.length()-1);
             return answer;
         }
