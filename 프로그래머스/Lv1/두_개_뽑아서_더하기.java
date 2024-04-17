@@ -41,4 +41,5 @@ public class 두_개_뽑아서_더하기 {
 //            //4. 반환한다.
 //            return ts.stream().mapToInt(Integer::intValue).toArray();
 //        }
+
 }
