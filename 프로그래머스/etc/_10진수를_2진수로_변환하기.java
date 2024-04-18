@@ -5,15 +5,16 @@ package 프로그래머스.etc;
 //제약조건 : demical은 1이상 10억 미만의 자연수
 
 //입출력 예
-
-import java.util.Stack;
-
 /**
  * demical  |   return
  * 10           1010
  * 27           11011
  * 12345        11000000111001
  */
+
+
+import java.util.Stack;
+
 
 public class _10진수를_2진수로_변환하기 {
 
