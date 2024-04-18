@@ -1,46 +1,35 @@
 package 프로그래머스.Lv2;
 //[프로그래머스] 올바른 괄호 - JAVA(자바)
 
-//< 알고리즘 유형 >
-// 스택/큐
-
-//< 알고리즘 풀이 >
-// 스택을 이용
-
-//< 새로 알게된 것 >
-
-//< 궁금한 것 >
-
+//소요시간 : 5분
 
 import java.util.Stack;
 
 public class 올바른_괄호 {
     boolean solution(String s) {
         boolean answer = true;
-        Stack<Character> stack = new Stack<>();
 
-        for(Character c : s.toCharArray()){
+        Stack<Character> stk = new Stack<>();
+        for(int i=0; i<s.length(); i++){
+            char c = s.charAt(i);
             if(c=='('){
-                stack.push(c);
-            }
-            else{
-                if(stack.isEmpty()){
-                    answer = false;
-                    return answer;
-                }
-                else{
-                    stack.pop();
+                stk.push(c);
+            } else{
+                //예외처리1) 비어있으면 리턴
+                if(stk.isEmpty()){
+                    return false;
+                } else{
+                    stk.pop();
                 }
             }
         }
-
-        if(!stack.isEmpty()){
-            answer = false;
+        //예외처리2) 다 끝났는데 남아있으면 리턴
+        if(!stk.isEmpty()){
+            return false;
         }
 
-        return answer;
+        return true;
     }
-
     public static void main(String[] args) {
         String s1 = "()()";
         String s2 = "(())()";
