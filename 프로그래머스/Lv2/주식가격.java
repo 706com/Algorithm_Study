@@ -1,43 +1,48 @@
 package 프로그래머스.Lv2;
 //[프로그래머스] 주식가격 - JAVA(자바)
 
-//< 알고리즘 유형 >
-// 스택/큐
+/*
+입출력 예 설명
+- 1초의 주가는 1이며 1초부터 5초까지 총 4초간 주가를 유지했습니다.
+- 2초의 주가는 2이며 2초부터 5초까지 총 3초간 주가를 유지했습니다.
+- 3초의 주가는 3이며 4초의 주가는 2로 주가가 떨어졌지만 3초에서 4초가 되기 직전까지의 1초간 주가가 유지 된것으로 봅니다. 따라서 5초까지 총 1초간 주가를 유지했습니다.
+- 4초의 주가는 2이며 4초부터 5초까지 총 1초간 주가를 유지했습니다.
+- 5초의 주가는 3이며 5초 이후로는 데이터가 없으므로 총 0초간 주가를 유지했습니다.
+*/
 
-//< 알고리즘 풀이 >
-// 스택/큐 인데.. 배열로 접근!
-
-//< 새로 알게된 것 >
-
-//< 궁금한 것 >
-// 다음에 스택으로 접근해보자.
+import java.util.ArrayList;
+import java.util.List;
 
 public class 주식가격 {
+    /**
+     * 스택 접근
+     */
+
+
+    /**
+     * 배열 접근
+     * -> 통과는 했으나, 비효율적. O(N^2)
+     */
     public int[] solution(int[] prices) {
         int[] answer = {};
-        answer = new int[prices.length];
+        List<Integer> list =  new ArrayList<>();
 
-        for(int i=0; i< prices.length; i++){
+        for(int i=0; i<prices.length; i++){
+            int start = prices[i];
             int count = 0;
-            for(int j=i+1; j< prices.length; j++){
-                if(prices[i]>prices[j]){
+            for(int j = i+1; j<prices.length; j++){
+                if(start <= prices[j]){
+                    count++;
+                }
+                //주식이 떨어진 순간. 그 이후로는 볼 필요 X
+                else{
                     count++;
                     break;
                 }
-                count++;
             }
-            answer[i] = count;
+            list.add(count);
         }
-
-//        for(int i=0; i< prices.length; i++){
-//            System.out.print(answer[i]+" ");
-//        }
+        answer = list.stream().mapToInt(Integer::intValue).toArray();
         return answer;
-    }
-
-    public static void main(String[] args) {
-        int[] prices = {1, 2, 3, 2, 3};
-        주식가격 sol = new 주식가격();
-        sol.solution(prices);
     }
 }
