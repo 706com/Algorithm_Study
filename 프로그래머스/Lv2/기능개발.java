@@ -1,24 +1,83 @@
 package 프로그래머스.Lv2;
 //[프로그래머스] 같은 숫자는 싫어 - JAVA(자바)
 
-//< 알고리즘 유형 >
-// queue
+// <소요시간>
+// [240423] : 25분
 
-//< 알고리즘 풀이 >
-// Queue 에 담을 내용 : 수행 완료 일자
-// 수행 완료 일자 기준으로 break point 설정하여 answer 에 담기.
+// 최적화 방법 : 클래스 안에 미리 구해둔 기능완료 날짜를 넣어둔다.
+// (int) Math.ceil(100.0/progresses[i]) / speeds[i] );
 
-//< 새로 알게된 것 >
-// Math.ceil -> 반올림 내림 가능
-
-//< 궁금한 것 >
-
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
 
 public class 기능개발 {
+    /**
+     * [240423]
+     * 최적화 X -> 최적화 필요
+     */
     public int[] solution(int[] progresses, int[] speeds) {
+        int[] answer = {};
+        List<Integer> answerList = new ArrayList<>();
+        Queue<Node> q = new LinkedList<>();
+
+        //1. 클래스 안에 인덱스, 진행률, 스피드를 담는다.
+        //2. 클래스를 순서대로 큐에 담는다.
+        for(int i=0; i<progresses.length; i++){
+            Node node = new Node(i,progresses[i],speeds[i]);
+            q.offer(node);
+        }
+
+        // for(Node x : q){
+        //     System.out.println(x);
+        // }
+
+        // q 내부를 살펴본다.
+
+        //3. 가장 상단의 인덱스를 기록한다.
+        int maxIdx = -1;
+
+        while(!q.isEmpty()){
+            int size = q.size();
+            int count = 0;
+            for(int i=0; i<size; i++){
+                Node node = q.poll();
+                node.prs += node.spd;
+                // System.out.println(node);
+                //-> 100이 되면 해당 인덱스 부터 뒤에 100이 끝날때까지 카운트
+                if(node.prs >= 100 && node.idx == maxIdx + 1){
+                    count++;
+                    maxIdx = node.idx;
+                }
+                //-> 100을 채우지 못하면 증가 후 뒤로
+                else{
+                    q.offer(node);
+                }
+            }
+            //4. 카운트가 끝나면 answer 리스트에 담는다.
+            if(count != 0){
+                answerList.add(count);
+            }
+        }
+        // System.out.println(answerList);
+
+        //5. 리스트를 배열로 바꾼다.
+        return answerList.stream().mapToInt(Integer::intValue).toArray();
+    }
+    class Node{
+        int idx;
+        int prs;
+        int spd;
+        Node(int i, int p,int s){
+            idx = i;
+            prs = p;
+            spd = s;
+        }
+        @Override
+        public String toString(){
+            return "i " + idx + " prs " + prs + " spd " + spd;
+        }
+    }
+/*-----------------------------------------*/
+    public int[] solution_(int[] progresses, int[] speeds) {
         int[] answer = {};
         Deque<Integer> deq = new LinkedList<>();
 
