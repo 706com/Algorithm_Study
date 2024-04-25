@@ -4,29 +4,31 @@ package 프로그래머스.Lv1;
 //< 알고리즘 유형 >
 // 해시
 
-//소요시간 : 6분
+// 소요시간
+// [240404] : 6분
+// [240425] : 5분
 
 import java.util.*;
 
 public class 완주하지_못한_선수 {
     public String solution(String[] participant, String[] completion) {
         String answer = "";
-        Map<String,Integer> map = new HashMap<>();
+        HashMap<String,Integer> hm = new HashMap<>();
         for(String x : participant){
-            map.put(x,map.getOrDefault(x,0)+1);
+            hm.put(x,hm.getOrDefault(x,0)+1);
         }
 
         for(String x : completion){
-            map.put(x,map.getOrDefault(x,0)-1);
+            hm.put(x,hm.getOrDefault(x,0)-1);
         }
 
-        for(String x : map.keySet()){
-            if(map.get(x)==1){
-                answer = x;
-                break;
+        for(String result : hm.keySet()){
+            if(hm.get(result) == 1){
+                return result;
             }
         }
-        return answer;
+
+        return "";
     }
     public static void main(String[] args){
         String[] participant = {"leo", "kiki", "eden"};
