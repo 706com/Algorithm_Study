@@ -20,7 +20,6 @@ public class 의상 {
             String type = clothes[i][1];
             hm.put(type,hm.getOrDefault(type,1)+1);
         }
-
         for(String x : hm.keySet()){
             answer *= hm.get(x);
         }
