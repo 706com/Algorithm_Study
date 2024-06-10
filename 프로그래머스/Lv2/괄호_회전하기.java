@@ -1,6 +1,7 @@
 package 프로그래머스.Lv2;
 
 //소요시간 : 17분
+//[240607] : 35분
 
 import java.util.*;
 
@@ -52,4 +53,46 @@ public class 괄호_회전하기 {
 
         return answer;
     }
+
+
+    public int solution2(String s) {
+        int answer = 0;
+        int tc = s.length();
+        while(tc-->0){
+            Stack<Character> stk = new Stack<>();
+            boolean error = false;
+            for(int i=0; i<s.length(); i++){
+                char c = s.charAt(i);
+                if(c=='[' || c=='{' || c=='('){
+                    stk.push(c);
+                }
+                else{
+                    if(stk.isEmpty()){
+                        error = true;
+                        break;
+                    }
+                    if(c==')' && stk.peek() == '('){
+                        stk.pop();
+                        continue;
+                    } else if(c=='}' && stk.peek() == '{'){
+                        stk.pop();
+                        continue;
+                    } else if(c==']' && stk.peek() == '['){
+                        stk.pop();
+                        continue;
+                    }
+                    error = true;
+                    break;
+                }
+            }
+            if(!error && stk.isEmpty()){
+                answer++;
+            }
+            String a = s.substring(0,1);
+            String b = s.substring(1);
+            s = b+a;
+        }
+        return answer;
+    }
 }
+
