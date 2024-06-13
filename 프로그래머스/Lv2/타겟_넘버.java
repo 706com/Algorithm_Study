@@ -2,24 +2,23 @@ package 프로그래머스.Lv2;
 
 //소요시간 : 17분 (시간초과 : 최적화)
 //소요시간 : 12분 (같은실수)
+//[240613] : 6분
 
 class 타겟_넘버 {
     static int answer = 0;
-
     public int solution(int[] numbers, int target) {
-        dfs(0,0,0,numbers,target);
-
+        dfs(0,0,numbers,target);
         return answer;
     }
-    public void dfs(int i,int depth,int sum,int[] numbers,int target){
-        if(depth == numbers.length){
+    void dfs(int depth,int sum, int[] number,int target){
+        if(depth == number.length){
             if(sum == target){
                 answer++;
             }
             return;
         }
-        dfs(i+1,depth+1,sum+numbers[i],numbers,target);
-        dfs(i+1,depth+1,sum-numbers[i],numbers,target);
+        dfs(depth+1,sum+number[depth],number,target);
+        dfs(depth+1,sum-number[depth],number,target);
     }
 }
 
