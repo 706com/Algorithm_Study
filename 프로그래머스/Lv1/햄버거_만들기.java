@@ -11,16 +11,15 @@ public class 햄버거_만들기 {
         int answer = 0;
         List<Integer> list = new ArrayList<>();
         for(int i=0; i<ingredient.length; i++){
+
             int now = ingredient[i];
-            if(i<=2){
-                list.add(now);
+            list.add(now);
+
+            if(list.size() < 4){
                 continue;
             }
-            list.add(now);
+
             if(now == 1){
-                if(list.size() < 4){
-                    continue;
-                }
                 if(list.get(list.size()-2) == 3){
                     if(list.get(list.size()-3) == 2){
                         if(list.get(list.size()-4) == 1){
