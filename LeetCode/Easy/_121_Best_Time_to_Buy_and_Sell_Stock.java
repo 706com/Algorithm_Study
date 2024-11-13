@@ -1,4 +1,4 @@
-package LeetCode;
+package LeetCode.Easy;
 
 //[241112] 소요시간 : 10분
 
