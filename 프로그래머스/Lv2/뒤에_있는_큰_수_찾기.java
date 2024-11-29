@@ -3,6 +3,7 @@ package 프로그래머스.Lv2;
 //소요시간
 //[240523] 실패
 //[240524] 30분
+//[241129] 20분
 
 //1. 스택에 담는다.
 //2. 만일 스택에 담을 때 비어있으면 -1 출력
@@ -16,37 +17,37 @@ import java.util.*;
 
 public class 뒤에_있는_큰_수_찾기 {
     public int[] solution(int[] numbers) {
-        int[] answer = new int[numbers.length];
+
         Stack<Integer> stk = new Stack<>();
-        for(int i=numbers.length-1; i>=0; i--){
-            int num = numbers[i];
-            //가장 처음
+        int N = numbers.length-1;
+
+        int[] result = new int[N+1];
+
+        for(int i=N; i>=0; i--){
+            int number = numbers[i];
             if(stk.isEmpty()){
-                stk.push(num);
-                answer[i] = -1;
+                result[i] = -1;
+                stk.push(number);
             } else{
-                if(stk.peek() > num){
-                    answer[i] = stk.peek();
-                    stk.push(num);
+                if(stk.peek() > number){
+                    result[i] = stk.peek();
+                    stk.push(number);
                 } else{
-                    while(true){
-                        if(stk.isEmpty()){
-                            answer[i] = -1;
-                            stk.push(num);
-                            break;
-                        }
-                        if(stk.peek()>num){
-                            answer[i] = stk.peek();
-                            stk.push(num);
-                            break;
-                        }
+                    while(!stk.isEmpty()){
                         stk.pop();
+                        if(stk.isEmpty()){
+                            result[i] = -1;
+                            break;
+                        }
+                        if(stk.peek() > number){
+                            result[i] = stk.peek();
+                            break;
+                        }
                     }
+                    stk.push(number);
                 }
             }
         }
-
-        // System.out.println(Arrays.toString(answer));
-        return answer;
+        return result;
     }
 }
