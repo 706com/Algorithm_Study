@@ -1,6 +1,6 @@
 package BOJ._2_Silver;
 
-//[241209] 06:52 ~
+//[241209] 7분
 
 import java.io.*;
 import java.util.*;
