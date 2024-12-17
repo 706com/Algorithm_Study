@@ -1,6 +1,6 @@
 package BOJ._3_Gold;
 
-//[241217] 2시간 50분
+//[241217] 3시간
 
 import java.util.*;
 import java.io.*;
