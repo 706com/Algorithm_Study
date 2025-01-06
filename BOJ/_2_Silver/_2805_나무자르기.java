@@ -1,60 +1,54 @@
 package BOJ._2_Silver;
 //[백준]2805 : 나무자르기 - JAVA(자바)
 
+//[250106] 🔍
+
 //<새로 알게된 것>
 //이분탐색
-//UpperBound 완벽 이해하기 (숙제)
-
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 import java.io.IOException;
 public class _2805_나무자르기 {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        int[] tree = new int[N];
-        int min = 0;
-        int mid = 0;
-        int max = 0;
+        int[] arr = new int[N];
 
-        st = new StringTokenizer(br.readLine()," ");
+        int left = 0;
+        int right = -1;
+
+        st = new StringTokenizer(br.readLine());
         for(int i=0; i<N; i++){
-            tree[i] = Integer.parseInt(st.nextToken());
-            if(max < tree[i]){
-                max = tree[i];
-            }
+            arr[i] = Integer.parseInt(st.nextToken());
+            right = Math.max(arr[i],right);
         }
 
-        while(min < max ){
-            mid = (min + max) / 2;
-            long sum = 0;               //int 형의 최댓값 : 21억 , M 의 최댓값 20억
-
-            //만일 자르는 위치(mid) 가 나무의 길이보다 높아서 안자르게 된다면
-            //treeheight - mid 는 음수가 나온다.
-            //따라서 조건문으로 treeheight - mid > 0 일 때 해당.
-
-            for(int treeheight : tree){
-                if(treeheight - mid > 0){
-                    sum += treeheight - mid;
+        while(left<=right){
+            int mid= (left + right) / 2;
+            long sum = 0;
+            for(int i=0; i<N; i++){
+                // 음수 처리
+                if(arr[i]>mid) {
+                    sum += (arr[i] - mid);
                 }
             }
+//            System.out.println(mid +" " + sum);
 
-            //만일 잘린 나무의 합 (sum) < 가져가야 할 나무 (M) 이면 = 자르는 위치를 낮춰야 한다
-            if(sum < M){
-                max = mid;
+            //합계가 낮다는 것은 더 아래에서 잘라야함을 의미
+            if(sum<M){
+                right = mid-1;
             }
-            //만일 잘린 나무의 합 (sum) >= 가져가야 할 나무 (M) 이면 = 자르는 위치를 높여야 한다
-            else if(sum >= M){
-                min = mid + 1;
+            //합계가 높다는 것은 더 위에서 잘라야함을 의미
+            else{
+                left = mid+1;
             }
         }
-
-        System.out.println(min -1);
+        System.out.println(right);
     }
 }
