@@ -3,49 +3,51 @@ package 프로그래머스.Lv2;
 // 소요시간
 // [240426] : 40분
 // [240624] : 40분
+// [250107] : 20분
 
 import java.util.*;
 
 public class 할인_행사 {
     public int solution(String[] want, int[] number, String[] discount) {
         int answer = 0;
-        HashMap<String, Integer> hm = new HashMap<>();
+        Map<String, Integer> wanted = new HashMap<>();
+        Map<String, Integer> sales = new HashMap<>();
 
-        //최초 10개
-        for(int i=0; i<10; i++){
-            hm.put(discount[i],hm.getOrDefault(discount[i],0)+1);
-        }
-
-        boolean isSale = true;
+        // 원하는 상품, 수량 기록
         for(int i=0; i<want.length; i++){
-            // 하나라도 불일치하면 탈출
-            if(!hm.containsKey(want[i]) || hm.get(want[i]) != number[i]){
-                isSale = false;
-                break;
-            }
-        }
-        if(isSale){
-            answer++;
+            wanted.put(want[i],number[i]);
         }
 
-        //11번째부터 조회
-        for(int i=10; i<discount.length; i++){
-            isSale = true;
-            // 새로운 날짜 할인 품목 추가
-            hm.put(discount[i],hm.getOrDefault(discount[i],0)+1);
-            // 10일 전 할인 품목 제거
-            hm.put(discount[i-10],hm.getOrDefault(discount[i-10],0)-1);
-            for(int j=0; j<want.length; j++){
-                //📌 값이 존재하지 않거나, 하나라도 불일치하면 탈출
-                if(!hm.containsKey(want[j]) || hm.get(want[j]) != number[j]){
-                    isSale = false;
+        //10일째까지 미리 담기
+        for(int i=0; i<9; i++){
+            sales.put(discount[i],sales.getOrDefault(discount[i],0)+1);
+        }
+
+        // for(String x : sales.keySet()){
+        //     System.out.println(x+" "+ sales.get(x));
+        // }
+
+        //10일차부터 확인
+        for(int i=9; i<discount.length; i++){
+            sales.put(discount[i],sales.getOrDefault(discount[i],0)+1);
+            // 11일차부턴 1일차꺼 빼기
+            if(i>=10){
+                sales.put(discount[i-10],sales.getOrDefault(discount[i-10],0)-1);
+            }
+
+            //10일째부터 비교 시작
+            boolean flag  = true;
+            for(String x : wanted.keySet()){
+                if(sales.get(x) != wanted.get(x)){
+                    flag = false;
                     break;
                 }
             }
-            if(isSale){
+            if(flag){
                 answer++;
             }
         }
+
         return answer;
     }
 }
