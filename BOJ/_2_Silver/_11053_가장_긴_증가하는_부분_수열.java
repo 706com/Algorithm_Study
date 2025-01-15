@@ -22,23 +22,20 @@ public class _11053_가장_긴_증가하는_부분_수열 {
         for(int i=0; i<N; i++){
             arr[i] = Integer.parseInt(st.nextToken());
         }
-
-        dp[0] = 1;
-        for(int i=1; i<N; i++){
-            int target = i; // 변수명 헷갈려서
-            dp[target] = 1; // 1부터 시작
-
-            for(int j=i-1; j>=0; j--){
-                if(arr[target]>arr[j] && dp[target]<=dp[j]){
-                    dp[target] = Math.max(dp[target],dp[j]+1);
+        for(int i=0; i<N; i++){
+            dp[i]= 1;
+            for(int j=0; j<i; j++){
+                //누적된 값은 크고, 해당 시퀀스 값은 작을때
+                if(dp[i]<=dp[j] && arr[j]<arr[i]){
+                    dp[i] = Math.max(dp[i],dp[j]+1);
                 }
             }
+//            System.out.println(i+" "+dp[i]);
         }
-//        System.out.println(Arrays.toString(dp));
-        int max = 1;
+        int result = 1;
         for(int x : dp){
-            max = Math.max(max,x);
+            result = Math.max(result,x);
         }
-        System.out.println(max);
+        System.out.println(result);
     }
 }
