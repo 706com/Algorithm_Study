@@ -1,8 +1,6 @@
 package BOJ._3_Gold;
 
-//[250119]
-
-//좌표이동을 하나씩 하는건 말이 안되니.. 누적합 같은 문제?
+//[250119] 3시간🔍
 
 import java.io.*;
 import java.util.*;
@@ -11,6 +9,8 @@ public class _20061_모노미노도미노_2 {
     static boolean[][] blueArr;
     static boolean[][] greenArr;
     static int A = 6;
+    static int score = 0;
+    static int tile = 0;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
@@ -26,10 +26,16 @@ public class _20061_모노미노도미노_2 {
 
             stackBlue(t,x,y);
             evaluateBlue();
-//            evaluateLightBlue();
+            evaluateLightBlue();
+
             stackGreen(t,x,y);
-//            evaluateLightGreen();
+            evaluateGreen();
+            evaluateLightGreen();
         }
+
+        countTile();
+        System.out.println(score);
+        System.out.println(tile);
     }
     public static void stackBlue(int t, int x, int y){
         // 1*1
@@ -61,10 +67,10 @@ public class _20061_모노미노도미노_2 {
                 }
             }
         }
-        for(boolean[] a : blueArr){
-            System.out.println(Arrays.toString(a)+" ");
-        }
-        System.out.println();
+//        for(boolean[] a : blueArr){
+//            System.out.println(Arrays.toString(a)+" ");
+//        }
+//        System.out.println();
     }
 
     public static void evaluateBlue(){
@@ -86,14 +92,60 @@ public class _20061_모노미노도미노_2 {
             moveBlue(list);
         }
     }
-    public static void moveBlue(List<Integer> list){
-        for(int line : list){
-            for(int i=line; i>0; i--){
-//                while()
+    public static void evaluateLightBlue(){
+        List<Integer> list = new ArrayList<>(); //줄 기억하기
+        for(int i=0; i<=1; i++){
+            boolean flagTrue = false;
+            for(int j=0; j<4; j++){
+                if(blueArr[j][i]){
+                    flagTrue = true;
+                    break;
+                }
             }
+            //하나라도 있으면
+            if(flagTrue){
+                list.add(i);
+            }
+        }
+        if(!list.isEmpty()){
+            moveBlue(list);
         }
     }
 
+    //밀어내기 (점수획득, 단순 밀어냄)
+    public static void moveBlue(List<Integer> list){
+//        System.out.println(list);
+        Collections.sort(list);
+        for (Integer line : list) {
+            if (line >= 2) { // 2~5인 경우 (점수 증가)
+                for (int j = line; j > 0; j--) {
+                    for (int i = 0; i < 4; i++) {
+                        blueArr[i][j] = blueArr[i][j - 1];
+                    }
+                }
+                for (int i = 0; i < 4; i++) {
+                    blueArr[i][0] = false;
+                }
+                score++;
+            } else { // 0~1인 경우 (단순 밀어내기)
+                for (int j = 5; j > 0; j--) {
+                    for (int i = 0; i < 4; i++) {
+                        blueArr[i][j] = blueArr[i][j - 1];
+                    }
+                }
+                for (int i = 0; i < 4; i++) {
+                    blueArr[i][0] = false;
+                }
+            }
+        }
+//        System.out.println("=========밀어내기==========");
+//        for(boolean[] a : blueArr){
+//            System.out.println(Arrays.toString(a)+" ");
+//        }
+//        System.out.println();
+    }
+
+    //그린 쌓기
     public static void stackGreen(int t, int x, int y){
         // 1*1
         if(t==1){
@@ -124,27 +176,96 @@ public class _20061_모노미노도미노_2 {
                 }
             }
         }
-        for(boolean[] a : greenArr){
-            System.out.println(Arrays.toString(a)+" ");
-        }
-        System.out.println();
+//        for(boolean[] a : greenArr){
+//            System.out.println(Arrays.toString(a)+" ");
+//        }
+//        System.out.println();
     }
-    public static class Node{
-        String color;
-        int x;
-        int y;
-        boolean isExist;
-        Node(String color,int x, int y){
-            this.color = color;
-            this.x = x;
-            this.y = y;
-        }
 
-        public void exist(){
-            this.isExist = true;
+    public static void evaluateGreen(){
+        List<Integer> list = new ArrayList<>(); //줄 기억하기
+        for(int i=2; i<=5; i++){
+            boolean flagTrue = true;
+            for(int j=0; j<4; j++){
+                if(!greenArr[i][j]){
+                    flagTrue = false;
+                    break;
+                }
+            }
+            //한 줄 깨짐 (이동해야함)
+            if(flagTrue){
+                list.add(i);
+            }
         }
-        public void notExist(){
-            this.isExist = false;
+        if(!list.isEmpty()){
+            moveGreen(list);
+        }
+    }
+    public static void evaluateLightGreen(){
+        List<Integer> list = new ArrayList<>(); //줄 기억하기
+        for(int i=0; i<=1; i++){
+            boolean flagTrue = false;
+            for(int j=0; j<4; j++){
+                if(greenArr[i][j]){
+                    flagTrue = true;
+                    break;
+                }
+            }
+            //하나라도 있으면
+            if(flagTrue){
+                list.add(i);
+            }
+        }
+        if(!list.isEmpty()){
+            moveGreen(list);
+        }
+    }
+    public static void moveGreen(List<Integer> list){
+//        System.out.println(list);
+        Collections.sort(list);
+
+        for (Integer line : list) {
+            if (line >= 2) { // 2~5인 경우
+                for (int i = line; i > 0; i--) {
+                    for (int j = 0; j < 4; j++) {
+                        greenArr[i][j] = greenArr[i - 1][j];
+                    }
+                }
+                for (int j = 0; j < 4; j++) {
+                    greenArr[0][j] = false;
+                }
+                score++;
+            } else {
+                for (int i = 5; i > 0; i--) {
+                    for (int j = 0; j < 4; j++) {
+                        greenArr[i][j] = greenArr[i - 1][j];
+                    }
+                }
+                for (int j = 0; j < 4; j++) {
+                    greenArr[0][j] = false;
+                }
+            }
+        }
+//        System.out.println("=========밀어내기==========");
+//        for(boolean[] a : greenArr){
+//            System.out.println(Arrays.toString(a)+" ");
+//        }
+//        System.out.println();
+    }
+    public static void countTile(){
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 6; j++) {
+                if (blueArr[i][j]) {
+                    tile++;
+                }
+            }
+        }
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (greenArr[i][j]) {
+                    tile++;
+                }
+            }
         }
     }
 }
