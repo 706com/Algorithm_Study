@@ -72,7 +72,6 @@ public class _20061_모노미노도미노_2 {
 //        }
 //        System.out.println();
     }
-
     public static void evaluateBlue(){
         List<Integer> list = new ArrayList<>(); //줄 기억하기
         for(int i=2; i<=5; i++){
