@@ -10,7 +10,7 @@ package 프로그래머스.Lv2;
 
 import java.util.*;
 
-public class 교점에_별_그리기 {
+public class 교점에_별_만들기 {
     public String[] solution(int[][] line) {
         String[] answer = {};
         HashSet<Node> set= new HashSet<>(); // 교점 담아놓기. 교점이 겹칠 수도 있으니 Set으로 관리
