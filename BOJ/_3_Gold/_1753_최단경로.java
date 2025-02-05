@@ -2,6 +2,8 @@ package BOJ._3_Gold;
 
 //[250205] 🔍
 
+// 다익스트라를 PQ 로 구현하면 visited 변수가 필요없다. (오히려 했다가 틀릴수도 있다)
+
 import java.util.*;
 import java.io.*;
 
@@ -9,7 +11,7 @@ public class _1753_최단경로 {
 
     static List<Node>[] list;
     static int[] costs;
-    static boolean[] visited;
+//    static boolean[] visited;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,7 +24,7 @@ public class _1753_최단경로 {
 
         list = new ArrayList[V+1];
         costs = new int[V+1];
-        visited = new boolean[V+1];
+//        visited = new boolean[V+1];
 
         Arrays.fill(costs,Integer.MAX_VALUE);
         for(int i=0; i<=V; i++){
@@ -40,7 +42,7 @@ public class _1753_최단경로 {
             list[a].add(node);
         }
 
-        bfs(startV);
+        dijkstra(startV);
 
         StringBuilder sb = new StringBuilder();
         for(int i=1; i<=V; i++){
@@ -52,19 +54,19 @@ public class _1753_최단경로 {
         }
         System.out.println(sb);
     }
-    public static void bfs(int start){
+    public static void dijkstra(int start){
         PriorityQueue<Node> q = new PriorityQueue<>((o1,o2)-> o1.cost - o2.cost);
 //        Queue<Node> q = new LinkedList<>();
         q.offer(new Node(start,0));
-        visited[start] = true;
+//        visited[start] = true;
         costs[start] = 0;
 
         while(!q.isEmpty()){
             Node node = q.poll();
             for(Node x : list[node.V]){
-                if(visited[x.V]){
-                    continue;
-                }
+//                if(visited[x.V]){
+//                    continue;
+//                }
                 if(costs[x.V]>costs[node.V]+x.cost){
                     costs[x.V] = Math.min(costs[x.V],costs[node.V]+x.cost);
                     q.offer(new Node(x.V,costs[x.V]));
