@@ -1,4 +1,4 @@
-package BOJ._3_Gold;
+package BOJ._2_Silver;
 
 //[250205] 🔍
 
