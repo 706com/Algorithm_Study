@@ -1,38 +1,37 @@
 package 프로그래머스.Lv2;
 import java.util.*;
 
-//문자열 기능 기르기 문제 
-//반례 조심
+//[240401] 🔍
+//[250207] 🔍
+
+//❌ s.split(" ") (기본 동작)
+//연속된 공백을 무시하며, 문자열 끝에 있는 공백이 사라집니다.
+
+//✅ s.split(" ", -1)
+//모든 공백을 유지하며, 문자열 끝에 있는 공백도 포함됩니다.
 
 public class JadenCase_문자열_만들기 {
+    public String solution(String s) {
+        String result = "";
+        String[] arr = s.split(" ",-1);
 
+        System.out.println(Arrays.toString(arr));
 
-    class Solution {
-        public String solution(String s) {
-            String answer = "";
-            String lowerStr = s.toLowerCase();
-            String[] arr = lowerStr.split(" ");
-
-            for(int i=0; i<arr.length; i++){
-                System.out.println(arr[i]+" "+arr[i].length());
+        for(int i=0; i<arr.length; i++){
+            if(arr[i].length() == 0){
+                result += " ";
+                continue;
             }
+            String token = arr[i].toLowerCase();
 
-            for(String x : arr){
-                if(x.length()==0){
-                    answer += " ";
-                } else{
-                    String a = x.substring(0,1);
-                    String b = x.substring(1);
-                    answer += a.toUpperCase();
-                    answer += b+" ";
-                }
-            }
-            // "  for the what 1what  " -> "  For The What 1what  "
-            if(s.substring(s.length()-1).equals(" ")){
-                return answer;
-            }
-            answer = answer.substring(0,answer.length()-1);
-            return answer;
+            // System.out.println(token.length());
+            char upper = Character.toUpperCase(token.charAt(0));
+
+            result += (upper + token.substring(1,token.length()));
+            result += " ";
         }
+        result = result.substring(0,result.length()-1);
+
+        return result;
     }
 }
