@@ -1,67 +1,54 @@
 package 프로그래머스.Lv2;
 
 //[241115] 소요시간 : 1시간 30분 🔍
+//[250208] 50분 🔍
 
 import java.util.*;
 
 public class 연속된_부분_수열의_합 {
     public int[] solution(int[] sequence, int k) {
+        PriorityQueue<Node> pq = new PriorityQueue<>((o1,o2)-> {
+            if(o1.len == o2.len){
+                return o1.left - o2.left;
+            }
+            return o1.len - o2.len;
+        });
 
         int left = 0;
         int right = 0;
-        int sum = sequence[right];
-
-        List<Node> list = new ArrayList<>();
-
+        int sum = sequence[left];
         while(true){
-
+            // System.out.println(left+" "+right+" ::"+sum);
             if(sum == k){
-                Node node = new Node(left,right);
-                list.add(node);
-                // System.out.println(list);
+                // System.out.println("check");
+                pq.add(new Node(left,right));
             }
 
-            if(right == sequence.length-1 && left == sequence.length-1){
+            if(left == sequence.length-1 && right == sequence.length-1){
                 break;
             }
-
-            // 누적합이 k보다 적거나 같으면 이동한 right 합산
+            // 누적합이 같거나 작을때 , 그리고 끝까지 도달하지 않았을 때 right 증가
             if(sum <= k && right < sequence.length-1){
-                sum += sequence[++right];
+                right++;
+                sum += sequence[right];
             }
-            // 누적합이 k 보다 커졌으면 left값 빼고 이동
-            else{
-                sum -= sequence[left++];
+
+            else {
+                sum -= sequence[left];
+                left++;
             }
-            // System.out.println("::::"+ left +" "+ right +" " + sum);
         }
+        return new int[]{pq.peek().left,pq.peek().right};
 
-        Collections.sort(list);
-        return new int[]{list.get(0).left, list.get(0).right};
     }
-    class Node implements Comparable<Node>{
-
+    class Node{
         int left;
         int right;
         int len;
-
         Node(int left, int right){
             this.left = left;
-            this.right= right;
-            this.len = right-left;
-        }
-
-        public String toString(){
-            return left + " " + right + " " + len;
-        }
-        public int compareTo(Node other){
-            // len 이 같으면 left 가 짧은 것 오름차순
-            if(this.len == other.len){
-                return this.left - other.left;
-            }
-
-            // len이 짧을 때 오름차순
-            return this.len - other.len;
+            this.right = right;
+            len = right-left;
         }
     }
 }
