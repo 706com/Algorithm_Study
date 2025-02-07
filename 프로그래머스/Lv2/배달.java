@@ -2,61 +2,71 @@ package 프로그래머스.Lv2;
 
 //소요시간
 //[240618] : 40분 🔍
+//[250208] : 22분
+
+//다익스트라
+//두 마을 a, b를 연결하는 도로는 여러 개 (어떻게 처리하지) -> 다익스트라에선 필요없음 (visit처리가 없어서)
 
 import java.util.*;
 
 public class 배달 {
+    int[] dist;
+    List<Node>[] list;
     public int solution(int N, int[][] road, int K) {
-        int answer = 0;
 
-        // 간선 정보를 담은 맵을 초기화한다.
-        int[][] map = new int[N+1][N+1];
-        int[] cost = new int[N+1];
-        boolean[] visited = new boolean[N+1];
+        list = new ArrayList[N+1];
+        dist = new int[N+1];
 
-        for(int i=1; i<=N; i++){
-            Arrays.fill(map[i],5000000);
-            map[i][i] = 0;
+        Arrays.fill(dist,Integer.MAX_VALUE);
+
+        for(int i=0; i<=N; i++){
+            list[i] = new ArrayList<>();
         }
 
         for(int i=0; i<road.length; i++){
-            int start = road[i][0];
-            int end = road[i][1];
-            int costs = road[i][2];
-
-            map[start][end] = Math.min(map[start][end],costs);
-            map[end][start] = Math.min(map[end][start],costs);
+            int a = road[i][0];
+            int b = road[i][1];
+            int cost = road[i][2];
+            list[a].add(new Node(b,cost));
+            list[b].add(new Node(a,cost));
         }
-        Arrays.fill(cost,Integer.MAX_VALUE);
-        cost[1] = 0;
 
-        for(int i=1; i<=N; i++){
-            int min = Integer.MAX_VALUE;
-            int minIdx = 1;
-            //방문하지 않은 노드 중 cost 최솟값과 해당 인덱스를 찾는다.
-            for(int j=1; j<=N; j++){
-                if(!visited[j] && min > cost[j]){
-                    min = cost[j];
-                    minIdx = j;
+        dijkstra(1);
+        int result = 0;
+        for(int x : dist){
+            if(x<=K){
+                result++;
+            }
+        }
+        return result;
+    }
+    void dijkstra(int start){
+        PriorityQueue<Node> pq = new PriorityQueue<>((o1,o2)-> o1.cost- o2.cost);
+        pq.offer(new Node(start,0));
+        dist[start] = 0;
+
+        while(!pq.isEmpty()){
+            Node node = pq.poll();
+
+            if(dist[node.num] < node.cost){
+                continue;
+            }
+            for(int i=0; i<list[node.num].size(); i++){
+                Node target = list[node.num].get(i);
+                if(dist[target.num] > target.cost + dist[node.num]){
+                    dist[target.num] = target.cost + dist[node.num];
+                    pq.offer(target);
                 }
             }
-            //최솟값노드 방문처리
-            visited[minIdx] = true;
-
-            // 기존에 있던 값과, 왔던 경로 중, 작은값
-            for (int j = 2; j <= N; j++) {
-                if (cost[j] > cost[minIdx] + map[minIdx][j]) {
-                    cost[j] = cost[minIdx] + map[minIdx][j];
-                }
-            }
         }
-
-        for(int i=1; i<=N; i++){
-            if(cost[i] <= K){
-                answer++;
-            }
+        // System.out.println(Arrays.toString(dist));
+    }
+    class Node{
+        int num;
+        int cost;
+        Node (int num,int cost){
+            this.num = num;
+            this.cost = cost;
         }
-
-        return answer;
     }
 }
