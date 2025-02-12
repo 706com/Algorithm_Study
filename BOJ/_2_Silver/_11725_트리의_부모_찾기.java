@@ -1,5 +1,7 @@
 package BOJ._2_Silver;
 
+//[250212] 🔍
+
 // < 알고리즘 유형 >
 // 그래프 탐색
 
@@ -14,71 +16,55 @@ package BOJ._2_Silver;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.LinkedList;
 
 public class _11725_트리의_부모_찾기 {
-
     static int N;
+    static List<Integer>[] list;
+    static int[] parent;
 
-    static ArrayList<ArrayList<Integer>> arr;
-    static boolean[] visited;
-    static int[] father;
-
-    static StringBuilder sb = new StringBuilder();
-
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-
         N = Integer.parseInt(br.readLine());
+        list = new ArrayList[N+1];
+        parent = new int[N+1];
 
-        arr= new ArrayList<>();
+        // 노드 - 간선 정보 입력
         for(int i=0; i<=N; i++){
-            arr.add(new ArrayList<>());
+            list[i] = new ArrayList<>();
         }
-
-        visited = new boolean[N+1];
-        father = new int[N+1];
-
-        // 인접리스트 구현
         for(int i=0; i<N-1; i++){
-            st = new StringTokenizer(br.readLine());
+            StringTokenizer st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            arr.get(a).add(b);
-            arr.get(b).add(a);
+            list[a].add(b);
+            list[b].add(a);
         }
 
-//        // 값 확인
-//        for(ArrayList node : arr){
-//            System.out.println(node);
-//        }
-
         bfs(1);
-
+        StringBuilder sb = new StringBuilder();
         for(int i=2; i<=N; i++){
-            sb.append(father[i]).append('\n');
+            sb.append(parent[i]+"\n");
         }
         System.out.println(sb);
     }
-
-    static void bfs(int start){
+    public static void bfs(int start){
         Queue<Integer> q = new LinkedList<>();
         q.offer(start);
 
-        visited[start] = true;
+        while(!q.isEmpty()){
+            Integer num = q.poll();
 
-        while(!q.isEmpty()) {
-            int node = q.poll();
-            for(int v : arr.get(node)){
-                if(!visited[v]){
-                    visited[v] = true;
-                    q.offer(v);
-                    father[v] = node;
+            for(int target : list[num]){
+                if(parent[target] != 0){
+                    continue;
                 }
+                q.offer(target);
+                parent[target] = num;
             }
         }
     }
