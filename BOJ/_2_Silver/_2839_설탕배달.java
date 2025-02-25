@@ -1,45 +1,34 @@
 package BOJ._2_Silver;
-//[백준]2839 : 설탕배달 - JAVA(자바)
 
-import java.util.Scanner;
+//[221119] : 🔍
+//[230518] : 🔍
+//[250225] : 12분
 
-//<새로 알게된 것>
-//수학적 사고 -> 규칙찾기
+import java.io.*;
+import java.util.*;
+
 public class _2839_설탕배달 {
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-            int N = sc.nextInt();
-            int result = sugar(N);
-            System.out.println(result);
+        int N = Integer.parseInt(br.readLine());
+        int[] dp = new int[N+1];
 
-    }
+        Arrays.fill(dp,Integer.MAX_VALUE);
 
-    public static int sugar(int n){
-
-        //5의배수
-        if(n % 5 == 0) {
-            return (n / 5);
+        dp[0] = 0;
+        for(int i=3; i<=N; i++){
+            if(dp[i-3] != Integer.MAX_VALUE){
+                dp[i] = Math.min(dp[i],dp[i-3]+1);
+            }
+            if(i>=5 && dp[i-5] != Integer.MAX_VALUE){
+                dp[i] = Math.min(dp[i],dp[i-5]+1);
+            }
         }
-        //5의배수 +1
-        else if((n % 5) == 1){
-            return (n / 5) + 1;
+        if(dp[N]== Integer.MAX_VALUE){
+            System.out.println(-1);
+            return;
         }
-        //5의배수 +2 (12보다 클 때부터 해당)
-        else if((n % 5) == 2 && n >= 12){
-            return (n / 5) + 2;
-        }
-        //5의 배수 +3
-        else if((n % 5) == 3 ){
-            return (n / 5) + 1;
-        }
-        //5의배수 +4   (9보다 클 때부터 해당)
-        else if((n % 5) == 4 && n >= 9){
-            return (n / 5) + 2;
-        }
-        // 4,7 일 때
-        else{
-            return -1;
-        }
+        System.out.println(dp[N]);
     }
 }
