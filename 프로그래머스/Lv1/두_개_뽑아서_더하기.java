@@ -1,5 +1,7 @@
 package 프로그래머스.Lv1;
 
+//251008] : 6분
+
 import java.util.*;
 
 public class 두_개_뽑아서_더하기 {
@@ -42,4 +44,20 @@ public class 두_개_뽑아서_더하기 {
 //            return ts.stream().mapToInt(Integer::intValue).toArray();
 //        }
 
+// MEMO : Simple
+//    public int[] solution(int[] numbers) {
+//        int[] answer = {};
+//        Set<Integer> set = new HashSet<>();
+//        for(int i=0; i<numbers.length; i++){
+//            for(int j=i+1; j<numbers.length; j++){
+//                set.add(numbers[i]+numbers[j]);
+//            }
+//        }
+//        List<Integer> list = new ArrayList<>();
+//        for(int x : set){
+//            list.add(x);
+//        }
+//        Collections.sort(list);
+//        return list.stream().mapToInt(Integer::intValue).toArray();
+//    }
 }
