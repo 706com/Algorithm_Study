@@ -3,6 +3,7 @@ package 프로그래머스.Lv2;
 //소요시간 : 17분
 //[240607] : 35분
 //[250218] 57분
+//[251016] 20분
 
 import java.util.*;
 
@@ -57,42 +58,51 @@ public class 괄호_회전하기 {
 
 
     public int solution2(String s) {
+
+        // 1. 문자열 조합의 수 계산 (Set)
+        Set<String> set = new HashSet<>();
+
+        // 2. 중복제거 돌리기
+        for(int i=0; i<s.length(); i++){
+            // String + 연산이 좋지 않지만 양이 적으므로..
+            s = s.substring(1,s.length())+s.substring(0,1);
+            set.add(s);
+        }
+
+        // 각 조합 갯수 세기
         int answer = 0;
-        int tc = s.length();
-        while(tc-->0){
-            Stack<Character> stk = new Stack<>();
-            boolean error = false;
-            for(int i=0; i<s.length(); i++){
-                char c = s.charAt(i);
-                if(c=='[' || c=='{' || c=='('){
+        for(String x : set){
+            Deque<Character> stk = new ArrayDeque<>();
+            boolean failFlag = false;
+
+            for(int i=0; i<x.length(); i++){
+                char c = x.charAt(i);
+
+                if(c=='('||c=='{'||c=='['){
                     stk.push(c);
-                }
-                else{
+                } else{
+                    // 비어있으면 실패
                     if(stk.isEmpty()){
-                        error = true;
+                        failFlag = true;
                         break;
                     }
                     if(c==')' && stk.peek() == '('){
                         stk.pop();
-                        continue;
                     } else if(c=='}' && stk.peek() == '{'){
                         stk.pop();
-                        continue;
                     } else if(c==']' && stk.peek() == '['){
                         stk.pop();
-                        continue;
+                    } else{ // 조건 부합하지 않으면 실패
+                        failFlag = true;
+                        break;
                     }
-                    error = true;
-                    break;
                 }
             }
-            if(!error && stk.isEmpty()){
+            if(!failFlag && stk.isEmpty()){
                 answer++;
             }
-            String a = s.substring(0,1);
-            String b = s.substring(1);
-            s = b+a;
         }
+
         return answer;
     }
 }
