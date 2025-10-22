@@ -1,29 +1,68 @@
 package 프로그래머스.Lv2;
 //[프로그래머스] 주식가격 - JAVA(자바)
 
-/*
-입출력 예 설명
-- 1초의 주가는 1이며 1초부터 5초까지 총 4초간 주가를 유지했습니다.
-- 2초의 주가는 2이며 2초부터 5초까지 총 3초간 주가를 유지했습니다.
-- 3초의 주가는 3이며 4초의 주가는 2로 주가가 떨어졌지만 3초에서 4초가 되기 직전까지의 1초간 주가가 유지 된것으로 봅니다. 따라서 5초까지 총 1초간 주가를 유지했습니다.
-- 4초의 주가는 2이며 4초부터 5초까지 총 1초간 주가를 유지했습니다.
-- 5초의 주가는 3이며 5초 이후로는 데이터가 없으므로 총 0초간 주가를 유지했습니다.
-*/
+//[251022] 🔎
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class 주식가격 {
     /**
      * 스택 접근
      */
+    public int[] solution(int[] prices) {
+        int[] answer = new int[prices.length];
+
+        Deque<Node> stk = new ArrayDeque<>();
+
+        for(int i=0; i<prices.length; i++){
+            Node nowNode = new Node(i,prices[i]);
+
+            while(true){
+                // 비어있으면 out
+                if(stk.isEmpty()){
+                    break;
+                }
+                Node beforeNode = stk.peek();
+
+                // 현재 가격이 과거보다 작을 때 -> 기간 책정
+                // 책정했으면 제거
+                if(beforeNode.val > nowNode.val){
+                    answer[beforeNode.idx] = nowNode.idx - beforeNode.idx;
+                    stk.pop();
+                } else{
+                    break;
+                }
+            }
+            stk.push(nowNode);
+        }
+
+        //남은 노드들은 끝까지 간 것 -> 기간 책정
+        while(!stk.isEmpty()){
+            Node remainNode = stk.pop();
+
+            answer[remainNode.idx] = (prices.length -1) - remainNode.idx;
+        }
+
+        return answer;
+    }
+
+    class Node{
+        int idx;
+        int val;
+
+        Node(int idx, int val){
+            this.idx = idx;
+            this.val = val;
+        }
+    }
+
 
 
     /**
      * 배열 접근
      * -> 통과는 했으나, 비효율적. O(N^2)
      */
-    public int[] solution(int[] prices) {
+    public int[] solution2(int[] prices) {
         int[] answer = {};
         List<Integer> list =  new ArrayList<>();
 
