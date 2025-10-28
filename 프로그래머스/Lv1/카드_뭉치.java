@@ -2,34 +2,36 @@ package 프로그래머스.Lv1;
 
 // 소요시간
 // [240423] : 8분
+// [251028] : 9분
 
 import java.util.*;
 
 public class 카드_뭉치 {
     public String solution(String[] cards1, String[] cards2, String[] goal) {
-        String answer = "";
-        Queue<String> q1 = new LinkedList<>();
-        Queue<String> q2 = new LinkedList<>();
+        Queue<String> q1 = new ArrayDeque<>();
+        Queue<String> q2 = new ArrayDeque<>();
 
-        // 큐에 카드뭉치들 넣기. (순서)
-        for(int i=0; i<cards1.length; i++){
-            q1.offer(cards1[i]);
+        // 카드 뭉치 넣기
+        for(String x : cards1){
+            q1.offer(x);
         }
-        for(int i=0; i<cards2.length; i++){
-            q2.offer(cards2[i]);
+        for(String x : cards2){
+            q2.offer(x);
         }
 
-        //탐색하며 결과 반환
-        for(int i=0; i<goal.length; i++){
-            String key = goal[i];
-            if(!q1.isEmpty() && key.equals(q1.peek())){
+        boolean failFlag = false;
+        for(String x : goal){
+            if(!q1.isEmpty() && q1.peek().equals(x)){
                 q1.poll();
-                continue;
-            } else if(!q2.isEmpty() && key.equals(q2.peek())){
+            } else if(!q2.isEmpty() && q2.peek().equals(x)){
                 q2.poll();
             } else{
-                return "No";
+                failFlag = true;
+                break;
             }
+        }
+        if(failFlag){
+            return "No";
         }
         return "Yes";
     }
