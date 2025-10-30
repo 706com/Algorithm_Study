@@ -7,34 +7,30 @@ package 프로그래머스.Lv1;
 // 소요시간
 // [240404] : 6분
 // [240425] : 5분
+// [251030] : 4분
 
 import java.util.*;
 
 public class 완주하지_못한_선수 {
     public String solution(String[] participant, String[] completion) {
-        String answer = "";
-        HashMap<String,Integer> hm = new HashMap<>();
-        for(String x : participant){
-            hm.put(x,hm.getOrDefault(x,0)+1);
+        Map<String,Integer> map = new HashMap<>();
+
+        //참가자 (동명이인 포함)
+        for(String name : participant){
+            map.put(name,map.getOrDefault(name,0)+1);
         }
 
-        for(String x : completion){
-            hm.put(x,hm.getOrDefault(x,0)-1);
+        //완주자
+        for(String name : completion){
+            map.put(name,map.get(name)-1);
         }
 
-        for(String result : hm.keySet()){
-            if(hm.get(result) == 1){
-                return result;
+        for(String x : map.keySet()){
+            if(map.get(x) != 0){
+                return x;
             }
         }
 
         return "";
-    }
-    public static void main(String[] args){
-        String[] participant = {"leo", "kiki", "eden"};
-        String[] completion = {"eden", "kiki"};
-
-        완주하지_못한_선수 sol = new 완주하지_못한_선수();
-        System.out.println(sol.solution(participant,completion));
     }
 }
