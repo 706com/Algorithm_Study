@@ -4,50 +4,50 @@ package 프로그래머스.Lv2;
 // [240426] : 40분
 // [240624] : 40분
 // [250107] : 20분
+// [251116] : 28분
 
 import java.util.*;
 
 public class 할인_행사 {
     public int solution(String[] want, int[] number, String[] discount) {
         int answer = 0;
-        Map<String, Integer> wanted = new HashMap<>();
-        Map<String, Integer> sales = new HashMap<>();
 
-        // 원하는 상품, 수량 기록
-        for(int i=0; i<want.length; i++){
-            wanted.put(want[i],number[i]);
-        }
+        Map<String,Integer> cart = new HashMap<>();
 
-        //10일째까지 미리 담기
+        //최초 9일 담기
         for(int i=0; i<9; i++){
-            sales.put(discount[i],sales.getOrDefault(discount[i],0)+1);
+            cart.put(discount[i],cart.getOrDefault(discount[i],0)+1);
         }
 
-        // for(String x : sales.keySet()){
-        //     System.out.println(x+" "+ sales.get(x));
-        // }
-
-        //10일차부터 확인
+        //10일차부터 확인 시작
         for(int i=9; i<discount.length; i++){
-            sales.put(discount[i],sales.getOrDefault(discount[i],0)+1);
-            // 11일차부턴 1일차꺼 빼기
-            if(i>=10){
-                sales.put(discount[i-10],sales.getOrDefault(discount[i-10],0)-1);
+            //11일차 부터는 일 수 지난 상품은 제외
+            if(i != 9){
+                cart.put(discount[i-10],cart.getOrDefault(discount[i-10],0)-1);
             }
+            cart.put(discount[i],cart.getOrDefault(discount[i],0)+1);
 
-            //10일째부터 비교 시작
-            boolean flag  = true;
-            for(String x : wanted.keySet()){
-                if(sales.get(x) != wanted.get(x)){
-                    flag = false;
-                    break;
-                }
-            }
-            if(flag){
+            if(checkAllSales(want,number,cart)){
                 answer++;
             }
         }
 
+        // for(String x : cart.keySet()){
+        //     System.out.println(x +" "+ cart.get(x));
+        // }
         return answer;
+    }
+    boolean checkAllSales(String[] want,int[] number, Map<String,Integer> cart){
+        System.out.println();
+        for(int i=0; i<want.length; i++){
+            //하나라도 갯수가 모자라면 false 리턴
+            if(cart.containsKey(want[i]) && cart.get(want[i]) != number[i]){
+                return false;
+            }
+            if(!cart.containsKey(want[i])){
+                return false;
+            }
+        }
+        return true;
     }
 }
