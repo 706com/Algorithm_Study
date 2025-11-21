@@ -2,92 +2,69 @@ package 프로그래머스.Lv2;
 
 // 소요시간
 // [240427] : 30분
+//[251121] : 25분
 
 import java.util.*;
 
 public class 오픈채팅방 {
     public String[] solution(String[] record) {
-        String[] answer;
-        List<String> result = new ArrayList<>();
-        //uid를 key로 가지고 닉네임을 값으로 가지는 해시를 생성한다.
-        HashMap<String, String> hm = new HashMap<>();
-        //queue에 command와 uid를 가지는 클래스를 담는다.
-        Queue<Node> q = new LinkedList<>();
+        Map<String, String> map = new HashMap<>();
 
-        // record 입력값에 따라서 명령어대로 수행
+        List<Info> commandList = new ArrayList<>();
         for(int i=0; i<record.length; i++){
-            StringTokenizer st = new StringTokenizer(record[i]);
-            String command = st.nextToken();
-            String uid;
-            String nickname;
-            Node node;
+            String[] infos = record[i].split(" ");
+            String command = infos[0];  //명령어
             switch(command){
-                //Enter : 큐에 명령어와 uid 넣기
-                //해시에 값 넣기
                 case "Enter":
-                    uid = st.nextToken();
-                    nickname = st.nextToken();
-                    node = new Node(command,uid);
-                    q.offer(node);
-                    hm.put(uid,nickname);
+                    String uuid = infos[1];
+                    String nickname = infos[2];
+
+                    commandList.add(new Info(command,uuid));
+                    map.put(uuid,nickname); // uuid 기준 있으면 덮어쓰기
                     break;
-                //Leave : 큐에 명령어와 uid 넣기
                 case "Leave":
-                    uid = st.nextToken();
-                    node = new Node(command,uid);
-                    q.offer(node);
+                    uuid = infos[1];
+
+                    commandList.add(new Info(command,uuid));
                     break;
-                //Change : 해시값 변경
                 case "Change":
-                    uid = st.nextToken();
-                    nickname = st.nextToken();
-                    hm.put(uid,nickname);
+                    uuid = infos[1];
+                    nickname = infos[2];
+
+                    map.put(uuid,nickname);
                     break;
             }
         }
 
-        // for(Node x : q){
-        //     System.out.println(x.command +" " +x.uid);
-        // }
+        //결과 출력
+        List<String> resultList = new ArrayList<>();
 
-        //큐 순회 :
-        while(!q.isEmpty()){
-            Node node = q.poll();
-            String command = node.command;
-            String uid = node.uid;
-            //  큐 값이 Enter 일때 -> 해시에 검색해서 들어왔습니다 출력
-            if(command.equals("Enter")){
-                String nickname = hm.get(uid);
-                String str = nickname +"님이 들어왔습니다.";
-                result.add(str);
+        for(Info x : commandList){
+            String message = "";
+            if(x.command.equals("Enter")){
+                message = map.get(x.uuid) +"님이 들어왔습니다.";
+            }else if(x.command.equals("Leave")){
+                message = map.get(x.uuid) +"님이 나갔습니다.";
             }
-            //  큐 값이 Leave 일때 -> 해시에 검색해서 나갔습니다 출력
-            else if(command.equals("Leave")){
-                String nickname = hm.get(uid);
-                String str = nickname +"님이 나갔습니다.";
-                result.add(str);
-            }
-            //  Change일때 -> 해시 값 변경
 
+            resultList.add(message);
         }
-
-//        // for문으로 변경
-//        answer = new String[result.size()];
-//        for(int i=0; i<result.size(); i++){
-//            answer[i] = result.get(i);
-//        }
-//        return answer;
-
-        // Stream으로 변경
-        return result.stream().toArray(String[]::new);
+        // System.out.println(resultList);
+        return resultList.stream().toArray(String[]::new);
     }
-    class Node{
-        String command;
-        String uid;
 
-        Node(String cmd, String u){
-            command = cmd;
-            uid = u;
+
+    public class Info{
+        String command;
+        String uuid;
+
+        public Info(String command,String uuid){
+            this.command = command;
+            this.uuid = uuid;
+        }
+        @Override
+        public String toString(){
+            return command + " " + uuid;
         }
     }
 }
