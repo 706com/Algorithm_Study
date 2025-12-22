@@ -34,13 +34,14 @@ public class _1707_이분_그래프 {
 
                 //미방문이면 시작
                 if(color[i] == -1){
-                    dfs(i);   //0부터 시작
+                    color[i] = 0;   // 0부터 시작
+                    dfs(i);
                 }
             }
+            System.out.println(Arrays.toString(color));
         }
     }
     public static void dfs(int start){
-        color[start] = 0;   // 0부터 시작
 
         for(int x : graph[start]){
             // 이미 방문했으면 스킵
