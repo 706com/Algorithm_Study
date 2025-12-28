@@ -1,95 +1,70 @@
 package BOJ._2_Silver;
 
-// < 알고리즘 유형 >
-// dfs - bfs
+//[251228] 🔍
 
-// < 풀이 접근 >
-// *. N 이 10,000, M 이 100,000 이므로 메모리 초과를 우려하여 인접리스트로 구현!
-// 1. 신뢰관계를 인접리스트로 구현한다. (단방향)
-// 2. bfs 를 돌린다.
-// 3. 컴퓨터의 번호를 오룸차순으로 결과를 출력한다.
-
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class _1325_효율적인_해킹{
-
-    static int N;
-    static int line;
-    static ArrayList<Integer>[] arr;
+    static int N,M;
     static boolean[] visited;
-    static int[] result;
-    static int count = 0;
-
+    static List<Integer>[] arr;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        StringBuilder sb = new StringBuilder();
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
 
-        int N = Integer.parseInt(st.nextToken());
-        int line = Integer.parseInt(st.nextToken());
-
-        arr = new ArrayList[N+1];
-        for(int i=1; i<=N;i++){
+        // 1.인접리스트 초기화
+        arr = new List[N+1];
+        for(int i=1; i<=N; i++){
             arr[i] = new ArrayList<>();
         }
-
-        visited = new boolean[N+1];
-        result = new int[N+1];
-
-        for(int i=0; i<line; i++){
+        // start , end 는 반대로
+        for(int i=0; i<M; i++){
             st = new StringTokenizer(br.readLine());
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-
-            arr[b].add(a);
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
+            arr[end].add(start);    //단방향 (신뢰관계)
         }
 
+
+        // Q) 시작점인 10000개 를 모두 탐색? -> 그렇다. 각각 구해야 하므로
+        int[] result = new int[N+1];
+        int maxCnt = 0;
         for(int i=1; i<=N; i++){
-            bfs(i);
-            result[i] = count;
-            count = 0;
-            visited = new boolean[N+1];
+            visited = new boolean[N+1]; // 방문기록
+            result[i] = Math.max(bfs(i),result[i]);
+            maxCnt = Math.max(result[i],maxCnt);
         }
 
-        int max = 0;
-
-        for(int x : result){
-            if(max < x){
-                max = x;
-            }
-        }
-
+        StringBuilder sb = new StringBuilder();
         for(int i=1; i<=N; i++){
-            if(max == result[i]){
-                sb.append(i).append(" ");
+            if(maxCnt == result[i]){
+                sb.append(i+" ");
             }
         }
         System.out.println(sb);
     }
 
-    static void bfs(int num){
-        Queue<Integer> q = new LinkedList<>();
-        q.offer(num);
-        visited[num] = true;
+    public static int bfs(int start){
+        Queue<Integer> q = new ArrayDeque<>();
+        q.offer(start);
+        visited[start] = true;
+        int count = 0; // 각 출발노드에 대해서 해킹할 수 있는 갯수 세기
 
         while(!q.isEmpty()){
-            int node = q.poll();
-
-            for(int x : arr[node]){
-                if(!visited[x]){
-                    visited[x] = true;
-                    q.offer(x);
-                    count++;
+            Integer currentNode = q.poll();
+            for(int nextNode : arr[currentNode]){
+                if(visited[nextNode]){
+                    continue;
                 }
+                q.offer(nextNode);
+                visited[nextNode] = true;
+                count++;
             }
         }
+        return count;
     }
 }
 
