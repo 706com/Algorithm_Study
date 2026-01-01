@@ -1,6 +1,6 @@
 package BOJ._3_Gold;
 
-//[251222] 8:47
+//[251227] 1시간 30분
 
 import java.util.*;
 import java.io.*;
@@ -9,6 +9,7 @@ public class _1707_이분_그래프 {
     static int[] color;
     static List<Integer>[] graph;
     static int V,E;
+    static boolean endFlag;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
@@ -16,6 +17,7 @@ public class _1707_이분_그래프 {
             StringTokenizer st = new StringTokenizer(br.readLine());
             V = Integer.parseInt(st.nextToken());
             E = Integer.parseInt(st.nextToken());
+            endFlag = false;
 
             color = new int[V+1];
             Arrays.fill(color, -1);
@@ -28,7 +30,9 @@ public class _1707_이분_그래프 {
                 st = new StringTokenizer(br.readLine());
                 int start = Integer.parseInt(st.nextToken());
                 int end = Integer.parseInt(st.nextToken());
-                graph[start].add(end); // 미방문 초기화
+                // 무방향 그래프
+                graph[start].add(end);
+                graph[end].add(start);
             }
             for(int i=1; i<=V; i++){
 
@@ -36,14 +40,28 @@ public class _1707_이분_그래프 {
                 if(color[i] == -1){
                     color[i] = 0;   // 0부터 시작
                     dfs(i);
+                    if(endFlag){
+                        System.out.println("NO");
+                        break;
+                    }
                 }
             }
-            System.out.println(Arrays.toString(color));
+//            System.out.println(Arrays.toString(color));
+            if(!endFlag){
+                System.out.println("YES");
+            };
         }
     }
     public static void dfs(int start){
-
+        if(endFlag){
+            return;
+        }
         for(int x : graph[start]){
+            // 이미 방문한 곳의 컬러가 현재와 같으면 이분그래프 X
+            if(color[x] == color[start]){
+                endFlag = true;
+                return;
+            }
             // 이미 방문했으면 스킵
             if(color[x] != -1){
                 continue;
