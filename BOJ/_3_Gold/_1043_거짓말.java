@@ -1,6 +1,6 @@
 package BOJ._3_Gold;
 
-//[260103] 46분(진행중)
+//[260103] 1시간 20분
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -70,7 +70,7 @@ public class _1043_거짓말 {
             //알고있는 자
             for(int x : recognizeRealStoryMan){
                 for(int participants : party){
-                    if(parent[participants] == parent[x]){
+                    if(isSameSet(x,participants)){
                         failFlag = true;
                         break;
                     }
@@ -89,7 +89,7 @@ public class _1043_거짓말 {
         if(x == y){
             return;
         }
-        if(parent[x] < parent[y]){
+        if(x < y){
             parent[y] = x;
         } else{
             parent[x] = y;
@@ -102,5 +102,11 @@ public class _1043_거짓말 {
         int root = find(parent[x]);
         parent[x] = root;
         return root;
+    }
+    public static boolean isSameSet(int x, int y){
+        if(find(x) == find(y)){
+            return true;
+        }
+        return false;
     }
 }
